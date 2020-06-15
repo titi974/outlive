@@ -4,7 +4,7 @@
             <img alt="Vue logo" src="../assets/logo.png">
         </div>
         <div>
-            <v-btn color="primary">Démarrez</v-btn>
+            <v-btn color="primary" @click="creer()">Démarrez</v-btn>
             <v-text-field
                     v-model="nombre"
                     label="Nombre de joueur"
@@ -20,17 +20,21 @@
   export default {
     name: 'Home',
     data: () => ({
-      nombre: 0
+      nombre: 0,
+      session: ''
     }),
-    beforeMount: async function () {
-      try{
-        const r = await this.$http.post('api/jeux',{nombre:2})
-        const a = await this.$http.get('api')
-        console.log(r,a)
-      }catch (e) {
-        console.log(e)
+    methods: {
+      creer: async function () {
+        try {
+          const { data } = await this.$http.post('api/jeux', { nombre: this.nombre })
+          this.session = data
+          this.$router.push({ name: 'Sessions', params: { id: data } })
+        } catch (e) {
+          console.log(e)
+        }
       }
-
+    },
+    computed: {
 
     }
   }
