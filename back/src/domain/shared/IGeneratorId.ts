@@ -1,3 +1,3 @@
 export interface IGeneratorId {
-    execute: () => string
+	execute: () => string
 }
