@@ -8,7 +8,7 @@ type PreparezLeJeux = (nombre: number) => Promise<string>
 const PreparezLeJeux = (jeuxRepository: JeuxRepository, uuidGenerator: UUIDGenerator): PreparezLeJeux =>
     async (nombre: number): Promise<string> => {
         const session = new Session(uuidGenerator.execute());
-        const jeux = new Jeux(session);
+        const jeux = new Jeux(session, new Date(), nombre);
         await jeuxRepository.creer(jeux)
         return session.value
     }

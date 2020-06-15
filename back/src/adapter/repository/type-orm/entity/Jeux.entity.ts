@@ -5,8 +5,11 @@ export class JeuxEntity {
 	@PrimaryColumn()
 	id: string
 
-	// @Column()
-	// nom: string
+	@Column()
+	dateDebut: Date
+
+	@Column()
+	nbreJoueur: number
 
 	// @OneToMany(
 	// 	type => JoueurEntity,
