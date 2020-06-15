@@ -27,10 +27,10 @@ import {JeuxModule} from "./adapter/application/nestJs/jeux/jeux.module";
     ],
     controllers: [AppController],
     providers: [AppService,
-        {
-            provide: APP_INTERCEPTOR,
-            useClass: Interceptor,
-        },
+        // {
+        //     provide: APP_INTERCEPTOR,
+        //     useClass: Interceptor,
+        // },
     ],
 })
 export class AppModule {

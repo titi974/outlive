@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm'
+import {Column, Entity, JoinColumn, OneToMany, PrimaryColumn} from 'typeorm'
+import {JoueurEntity} from "./Joueur.entity";
 
 @Entity({ name: 'Jeux' })
 export class JeuxEntity {
@@ -11,13 +12,13 @@ export class JeuxEntity {
 	@Column()
 	nbreJoueur: number
 
-	// @OneToMany(
-	// 	type => JoueurEntity,
-	// 	joueur => joueur.jeux,
-	// 	{
-	// 		eager: true,
-	// 	},
-	// )
-	// @JoinColumn()
-	// joueurs: JoueurEntity[]
+	@OneToMany(
+		type => JoueurEntity,
+		joueur => joueur.jeux,
+		{
+			eager: true,
+		},
+	)
+	@JoinColumn()
+	joueurs: JoueurEntity[]
 }
