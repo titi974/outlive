@@ -4,6 +4,7 @@ import Jeux from "../../../domain/mise-en-place/entity/Jeux";
 import JeuxRepository from "../../../domain/mise-en-place/port/JeuxRepository";
 import JeuxMapperPersistance from "./mapper/JeuxMapperPersistance";
 import JoueurMapperPersistance from "./mapper/JoueurMapperPersistance";
+import {Optional} from "@eastbanctech/ts-optional";
 
 @EntityRepository(JeuxEntity)
 export class JeuxRepositoryTypeORM extends Repository<JeuxEntity> implements JeuxRepository {
@@ -18,6 +19,16 @@ export class JeuxRepositoryTypeORM extends Repository<JeuxEntity> implements Jeu
         const jeuxEntity = this.jeuxMapper.mapDomainToPersistance(jeux)
         await this.save(jeuxEntity)
     }
+
+    async findJeuxId(id: string): Promise<Optional<Jeux>> {
+        let jeux: Jeux = null;
+        const jeuxEntity = await this.findOne(id)
+        if(jeuxEntity){
+            jeux = this.jeuxMapper.mapPersistanceToDomain(jeuxEntity)
+        }
+        return Optional.ofNullable(jeux)
+    }
+
 
     // async trouverParId(id: IdJeux): Promise<Jeux> {
     // 	const jeuxEntity = await this.findOne(id.value)

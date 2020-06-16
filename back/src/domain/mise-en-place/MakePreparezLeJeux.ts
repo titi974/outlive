@@ -7,7 +7,7 @@ import Joueur from "./entity/Joueur";
 import {JoueurId} from "./valueObject/JoueurId";
 import JoueurRepository from "./port/JoueurRepository";
 
-type PreparezLeJeux = (nombre: number) => Promise<string>
+export type PreparezLeJeux = (nombre: number) => Promise<Session>
 
 const getRandomInt = (max: number, couleursDejaPrise: number[]): number => {
     let val: number
@@ -17,10 +17,10 @@ const getRandomInt = (max: number, couleursDejaPrise: number[]): number => {
     return val
 }
 
-const PreparezLeJeux = (jeuxRepository: JeuxRepository,
-                        joueurRepository: JoueurRepository,
-                        uuidGenerator: UUIDGenerator): PreparezLeJeux =>
-    async (nombreJoueur: number): Promise<string> => {
+const makePreparezLeJeux = (jeuxRepository: JeuxRepository,
+                            joueurRepository: JoueurRepository,
+                            uuidGenerator: UUIDGenerator): PreparezLeJeux =>
+    async (nombreJoueur: number): Promise<Session> => {
         const session = new Session(uuidGenerator.execute());
         const jeux = new Jeux(session, new Date(), nombreJoueur);
 
@@ -38,8 +38,8 @@ const PreparezLeJeux = (jeuxRepository: JeuxRepository,
         jeux.ajouterDesJoueurs(joueurs)
         await jeuxRepository.creer(jeux)
         await joueurRepository.creerDesJoueur(jeux)
-        return session.value
+        return session
     }
 
-export default PreparezLeJeux
+export default makePreparezLeJeux
 
