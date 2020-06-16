@@ -20,15 +20,13 @@
   export default {
     name: 'Home',
     data: () => ({
-      nombre: 0,
-      session: ''
+      nombre: 0
     }),
     methods: {
       creer: async function () {
         try {
-          const { data } = await this.$http.post('api/jeux', { nombre: this.nombre })
-          this.session = data
-          this.$router.push({ name: 'Sessions', params: { id: data } })
+          const { data } = await this.$http.post('/api/jeux', { nombre: this.nombre })
+          this.$router.push({ name: 'Sessions', params: { id: data.numero } })
         } catch (e) {
           console.log(e)
         }
