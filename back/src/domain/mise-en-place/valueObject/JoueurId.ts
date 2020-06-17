@@ -9,6 +9,6 @@ export class JoueurId implements ValueObject<JoueurId> {
     }
 
     sameValueAs(value: JoueurId): boolean {
-        return false;
+        return this.id === value.id;
     }
 }

@@ -12,6 +12,9 @@ export class JoueurEntity {
     @Column()
     jeuxId: string
 
+    @Column({default: ''})
+    pseudo: string
+
     @ManyToOne(
         type => JeuxEntity,
         jeux => jeux.joueurs,

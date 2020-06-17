@@ -1,4 +1,4 @@
-import {JeuxWeb, JoueurWeb} from "../jeux/jeux.controller";
+import {JeuxWeb} from "../jeux/jeux.controller";
 import Jeux from "../../../../domain/mise-en-place/entity/Jeux";
 
 export const mapDomainToWeb = (jeux: Jeux): JeuxWeb => {
@@ -8,7 +8,8 @@ export const mapDomainToWeb = (jeux: Jeux): JeuxWeb => {
         dateDebut: jeux.dateDebut.toDateString(),
         joueurs: jeux.joueurs.map(joueur => ({
             id: joueur.id.value,
-            couleur: joueur.couleur
+            couleur: joueur.couleur,
+            pseudo: joueur.pseudo
         }))
     }
 }

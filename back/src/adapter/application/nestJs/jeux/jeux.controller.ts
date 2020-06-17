@@ -1,11 +1,14 @@
-import {Controller, Post, Body, Param, Get} from '@nestjs/common'
+import {Controller, Post, Body, Param, Get, Put} from '@nestjs/common'
 import {JeuxService} from "./jeux.service";
 
 
+export type JeuxWeb = { session: SessionWeb, dateDebut: string, nombreJoueur: number, joueurs: JoueurWeb[] }
+export type JoueurWeb = { id: string, couleur: string, pseudo?: string }
+
 export type nombreJoueur = { nombre: number }
 export type SessionWeb = { numero: string }
-export type JoueurWeb = { id: string, couleur: string }
-export type JeuxWeb = { session: SessionWeb, dateDebut: string, nombreJoueur: number, joueurs: JoueurWeb[] }
+export type JoueurPseudoWeb = { id: string, couleur: string, pseudo: string }
+export type JoueursPseudoCommandWeb = { session: SessionWeb, joueurs: JoueurPseudoWeb[] }
 
 @Controller('jeux')
 export class JeuxController {
@@ -20,6 +23,11 @@ export class JeuxController {
     @Get(':id')
     async getSession(@Param('id') numero: string): Promise<JeuxWeb> {
         return this.jeuxService.afficherLesJoueurs(numero)
+    }
+
+    @Put(':id/joueurs')
+    async addPseudo(@Body() joueursPseudoWeb: JoueursPseudoCommandWeb): Promise<JeuxWeb> {
+        return this.jeuxService.enregistrerLesPseudo(joueursPseudoWeb)
     }
 
     // @Post(':id/joueurs')
