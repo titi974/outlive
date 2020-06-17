@@ -36,7 +36,14 @@
     },
     methods: {
       async sauvegarderPseudo () {
-        await this.$http.put(`/api/jeux/${this.$route.params.id}/joueurs`, { jeux: this.jeux })
+        await this.$http.put(`/api/jeux/${this.$route.params.id}/joueurs`, { ...this.mapper() })
+      },
+      mapper () {
+        const { session, joueurs } = this.jeux
+        return {
+          session,
+          joueurs
+        }
       }
     },
     computed: {
