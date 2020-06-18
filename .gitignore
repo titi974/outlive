@@ -156,7 +156,7 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+**/.env
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -204,3 +204,8 @@ dist
 /front/node_modules/
 /back/node_modules/
 /.idea/
+
+.DS_Store
+back/**/.DS_Store
+front/**/.DS_Store
+front/src/assets/2020-06-18_090549/

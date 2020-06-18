@@ -26,7 +26,7 @@
       creer: async function () {
         try {
           const { data } = await this.$http.post('/api/jeux', { nombre: this.nombre })
-          this.$router.push({ name: 'Sessions', params: { id: data.numero } })
+          await this.$router.push({ name: 'Sessions', params: { id: data.numero } })
         } catch (e) {
           console.log(e)
         }
