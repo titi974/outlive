@@ -21,17 +21,19 @@
       "test:e2e": "jest --config ./test/jest-e2e.json"
    },
    "dependencies": {
+      "@eastbanctech/ts-optional": "^1.0.0",
       "@nestjs/common": "^7.0.0",
       "@nestjs/core": "^7.0.0",
       "@nestjs/platform-express": "^7.0.0",
       "@nestjs/typeorm": "^7.1.0",
+      "@types/dotenv": "^8.2.0",
+      "dotenv": "^8.2.0",
       "mysql": "^2.18.1",
       "reflect-metadata": "^0.1.13",
       "rimraf": "^3.0.2",
       "rxjs": "^6.5.4",
       "typeorm": "^0.2.25",
-      "uuid": "^8.0.0",
-      "@eastbanctech/ts-optional": "^1.0.0"
+      "uuid": "^8.0.0"
    },
    "devDependencies": {
       "@nestjs/cli": "^7.0.0",
@@ -41,6 +43,7 @@
       "@types/jest": "25.1.4",
       "@types/node": "^13.9.1",
       "@types/supertest": "^2.0.8",
+      "@types/uuid": "^7.0.3",
       "@types/xdate": "^0.8.29",
       "@typescript-eslint/eslint-plugin": "^2.23.0",
       "@typescript-eslint/parser": "^2.23.0",
@@ -54,8 +57,7 @@
       "ts-loader": "^6.2.1",
       "ts-node": "^8.6.2",
       "tsconfig-paths": "^3.9.0",
-      "typescript": "^3.7.4",
-      "@types/uuid": "^7.0.3"
+      "typescript": "^3.7.4"
    },
    "jest": {
       "moduleFileExtensions": [

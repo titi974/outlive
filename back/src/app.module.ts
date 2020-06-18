@@ -8,29 +8,22 @@ import {join} from 'path'
 // import {SharedModule} from '../old/old/infra/shared/shared.module'
 // import {HeroModule} from '../old/old/infra/hero/hero.module'
 import {APP_INTERCEPTOR} from "@nestjs/core";
-import {Interceptor} from "./adapter/application/nestJs/interceptor/Interceptor";
-import {JeuxModule} from "./adapter/application/nestJs/jeux/jeux.module";
-
+import {Interceptor} from "./adapter/application/nest-js/interceptor/Interceptor";
+import {JeuxModule} from "./adapter/application/nest-js/jeux/jeux.module";
+import {LeadersModule} from "./adapter/application/nest-js/leaders/leaders.module";
+console.log(join(__dirname, '**', '*.entity.{ts,js}'))
 @Module({
     imports: [
-        TypeOrmModule.forRoot({
-            type: 'mysql',
-            host: 'localhost',
-            port: 3308,
-            username: 'root',
-            password: 'test',
-            database: 'jeux',
-            entities: [join(__dirname, '**', '*.entity.{ts,js}')],
-            synchronize: true,
-        }),
-        JeuxModule
+        TypeOrmModule.forRoot(),
+        JeuxModule,
+        LeadersModule
     ],
     controllers: [AppController],
     providers: [AppService,
-        // {
-        //     provide: APP_INTERCEPTOR,
-        //     useClass: Interceptor,
-        // },
+        {
+            provide: APP_INTERCEPTOR,
+            useClass: Interceptor,
+        },
     ],
 })
 export class AppModule {
