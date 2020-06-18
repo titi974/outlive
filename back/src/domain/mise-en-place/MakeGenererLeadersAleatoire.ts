@@ -3,33 +3,32 @@ import JeuxRepository from "./port/JeuxRepository";
 import Session from "./valueObject/Session";
 import SessionInexistanteError from "./SessionInexistanteError";
 import LeaderRepository from "./port/LeaderRepository";
+import Joueur from "./entity/Joueur";
 
-export type GenererLeadersAleatoire = (session: Session) => Promise<Leader[]>
+export type GenererLeadersAleatoire = (session: Session) => Promise<Joueur[]>
 
-const MakeGenererLeadersAleatoire = (jeuxRepository: JeuxRepository, leadersRepository: LeaderRepository): GenererLeadersAleatoire => async (session: Session): Promise<Leader[]> => {
+const MakeGenererLeadersAleatoire = (jeuxRepository: JeuxRepository, leadersRepository: LeaderRepository): GenererLeadersAleatoire => async (session: Session): Promise<Joueur[]> => {
     const jeuxOptional = await jeuxRepository.findJeuxId(session.value)
     if (!jeuxOptional.isPresent()) {
         new SessionInexistanteError(session)
     }
-    const jeux = jeuxOptional.get();
+    const {joueurs} = jeuxOptional.get();
     const leaders: Leader[] = await leadersRepository.allLeaders();
     const nombreDeLeader = leaders.length
-    const nombreDeLeaderAGenerer = jeux.nombreDeJoueur * 2
     const leaderGenerate: Leader[] = []
 
-    do {
-        const val = Math.floor(Math.random() * Math.floor(nombreDeLeader))
-        const leader = leaders[val]
-        if (val >= 0 && val < leaders.length && !leaderGenerate.includes(leader)) {
-            leaderGenerate.push(leader)
+    joueurs.forEach((joueur, i) => {
+        do {
+            const val = Math.floor(Math.random() * Math.floor(nombreDeLeader))
+            const leader = leaders[val]
+            if (val >= 0 && val < nombreDeLeader && !leaderGenerate.includes(leader)) {
+                leaderGenerate.push(leader)
+                joueur.leaderAChoisir(leader)
+            }
         }
-    }
-    while (leaderGenerate.length < nombreDeLeaderAGenerer)
-    // joueurs.forEach(joueur => {
-    //     joueur.leaderAChoisir(leaderGenerate.splice(0, 2))
-    // })
-    // return joueurs
-    return [] as Leader[]
+        while (leaderGenerate.length < ((i+1) * 2))
+    })
+    return joueurs
 }
 
 export default MakeGenererLeadersAleatoire

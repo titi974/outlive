@@ -2,8 +2,9 @@ import {Controller, Post, Body, Param, Get, Put} from '@nestjs/common'
 import {JeuxService} from "./jeux.service";
 
 
+export type LeaderWeb = { identite: string, profession: string, age: number, photo: string }
+export type JoueurWeb = { id: string, couleur: string, pseudo?: string, leaderAChoisir?: LeaderWeb[] }
 export type JeuxWeb = { session: SessionWeb, dateDebut: string, nombreJoueur: number, joueurs: JoueurWeb[] }
-export type JoueurWeb = { id: string, couleur: string, pseudo?: string }
 
 export type nombreJoueur = { nombre: number }
 export type SessionWeb = { numero: string }
