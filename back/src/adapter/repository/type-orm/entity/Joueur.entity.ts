@@ -1,5 +1,6 @@
-import {Column, Entity, ManyToOne, PrimaryColumn} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn} from "typeorm";
 import {JeuxEntity} from "./Jeux.entity";
+import {LeaderEntity} from "./Leader.entity";
 
 @Entity({name: 'Joueur'})
 export class JoueurEntity {
@@ -15,9 +16,17 @@ export class JoueurEntity {
     @Column({default: ''})
     pseudo: string
 
+    @Column()
+    leaderId: number
+
     @ManyToOne(
         type => JeuxEntity,
         jeux => jeux.joueurs,
     )
     jeux: JeuxEntity
+
+    @OneToOne(type => LeaderEntity, {eager: true})
+    @JoinColumn()
+    leader: LeaderEntity
+
 }

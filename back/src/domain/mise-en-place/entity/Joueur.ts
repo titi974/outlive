@@ -8,12 +8,17 @@ export default class Joueur implements Entity<Joueur> {
 
     private monPseudo: string;
     public readonly leadersAChoisr: Leader[] = []
+    private leader: Leader;
 
     constructor(public readonly id: JoueurId, public readonly couleur: COULEURS) {
     }
 
     get pseudo(): string {
         return this.monPseudo
+    }
+
+    get monLeader(): Leader {
+        return this.leader
     }
 
     ajouterUnPseudo(pseudo: string) {
@@ -29,5 +34,9 @@ export default class Joueur implements Entity<Joueur> {
             throw new MaximumLeaderAchoisirError()
         }
         this.leadersAChoisr.push(leader)
+    }
+
+    ajouterLeader(leader: Leader) {
+        this.leader = leader
     }
 }

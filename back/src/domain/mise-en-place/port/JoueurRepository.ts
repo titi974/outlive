@@ -4,4 +4,5 @@ import Joueur from "../entity/Joueur";
 export default interface JoueurRepository {
     enregistrerPseudo: (joueurs: Joueur[]) => Promise<void>;
     creerDesJoueur: (jeux: Jeux) => Promise<void>
+    enregistrer: (joueurs: Joueur) => Promise<void>;
 }

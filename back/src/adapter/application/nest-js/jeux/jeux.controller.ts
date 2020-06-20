@@ -3,7 +3,7 @@ import {JeuxService} from "./jeux.service";
 
 
 export type LeaderWeb = { identite: string, profession: string, age: number, photo: string }
-export type JoueurWeb = { id: string, couleur: string, pseudo?: string, leaderAChoisir?: LeaderWeb[] }
+export type JoueurWeb = { id: string, couleur: string, pseudo?: string, leaderAChoisir?: LeaderWeb[], leader?: LeaderWeb }
 export type JeuxWeb = { session: SessionWeb, dateDebut: string, nombreJoueur: number, joueurs: JoueurWeb[] }
 
 export type nombreJoueur = { nombre: number }

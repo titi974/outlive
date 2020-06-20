@@ -16,10 +16,15 @@ export const mapJoueurDomainToWeb = (joueur: Joueur): JoueurWeb => {
             leadersWeb.push(mapLeaderDomainToWeb(leader))
         })
     )
+    let leader: LeaderWeb | null = null
+    Optional.ofNullable(joueur.monLeader).ifPresent(monLeader => {
+        leader = monLeader
+    })
     return {
         id: joueur.id.value,
         pseudo: joueur.pseudo,
         couleur: joueur.couleur,
-        leaderAChoisir: leadersWeb
+        leaderAChoisir: leadersWeb,
+        leader: leader
     }
 }
