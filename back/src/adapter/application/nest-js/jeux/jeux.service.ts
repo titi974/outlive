@@ -3,7 +3,7 @@ import {JeuxRepositoryTypeORM} from "../../../repository/type-orm/JeuxRepository
 import {UUIDGenerator} from "../../../id-generator/UUIDGenerator";
 import {JoueurRepositoryTypeORM} from "../../../repository/type-orm/JoueurRepositoryTypeORM";
 import makePreparezLeJeux, {PreparezLeJeux} from "../../../../domain/mise-en-place/MakePreparezLeJeux";
-import makeAfficherLesJoueursDeLaSession, {AfficherLesJoueurs} from "../../../../domain/mise-en-place/MakeAfficherLesJoueursDeLaSession";
+import makeAfficherUnJeux, {AfficherLeJeux} from "../../../../domain/mise-en-place/MakeAfficherLesJoueursDeLaSession";
 import {JeuxWeb, JoueursPseudoCommandWeb, SessionWeb} from "./jeux.controller";
 import * as mapperSession from "../mapper/SessionMapper";
 import * as mapperJeux from "../mapper/JeuxMapper"
@@ -19,7 +19,7 @@ import {
 export class JeuxService {
 
     private readonly creerJeux: PreparezLeJeux
-    private readonly afficherLesJoueursDeLaSession: AfficherLesJoueurs
+    private readonly afficherUnJeux: AfficherLeJeux
     private readonly enregistrerLesPseudos: EnregistrerLesPseudo
 
     constructor(
@@ -28,7 +28,7 @@ export class JeuxService {
         uuidGenerator: UUIDGenerator
     ) {
         this.creerJeux = makePreparezLeJeux(jeuxRepository, joueurRepository, uuidGenerator)
-        this.afficherLesJoueursDeLaSession = makeAfficherLesJoueursDeLaSession(jeuxRepository)
+        this.afficherUnJeux = makeAfficherUnJeux(jeuxRepository)
         this.enregistrerLesPseudos = makeEnregistrerLesPseudo(jeuxRepository, joueurRepository)
     }
 
@@ -37,8 +37,8 @@ export class JeuxService {
         return mapperSession.mapDomainToWeb(session)
     }
 
-    async afficherLesJoueurs(numero: string): Promise<JeuxWeb> {
-        const jeux = await this.afficherLesJoueursDeLaSession(new Session(numero));
+    async afficherLeJeux(numero: string): Promise<JeuxWeb> {
+        const jeux = await this.afficherUnJeux(new Session(numero));
         return mapperJeux.mapDomainToWeb(jeux)
     }
 

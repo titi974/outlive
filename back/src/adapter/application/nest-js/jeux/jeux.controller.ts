@@ -29,7 +29,7 @@ export class JeuxController {
 
     @Get(':id')
     async getSession(@Param('id') numero: string): Promise<JeuxWeb> {
-        return this.jeuxService.afficherLesJoueurs(numero)
+        return this.jeuxService.afficherLeJeux(numero)
     }
 
     @Put(':id/joueurs')

@@ -18,9 +18,8 @@ export class JoueurController {
 
     @Patch(':id/leader')
     @Redirect(PATH, 303)
-    async ajouterUnLeader(@Body() joueurIdWithLeaderWeb: JoueurAddLeaderCommand) {
-        const joueurWeb = await this.service.enregistrer(joueurIdWithLeaderWeb);
+    async ajouterUnLeader(@Param('id') id:string,@Body() joueurAddLeaderCommand: JoueurAddLeaderCommand) {
+        const joueurWeb = await this.service.ajouterUnLeader(joueurAddLeaderCommand);
         return {url: redirect(joueurWeb.id)}
     }
-
 }

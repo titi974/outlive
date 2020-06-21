@@ -23,7 +23,7 @@ export class JoueurService {
         this.afficherUnJoueur = makeAfficherUnJoueur(joueurRepository)
     }
 
-    async enregistrer(joueurIdWithLeaderWeb: JoueurAddLeaderCommand): Promise<JoueurWeb> {
+    async ajouterUnLeader(joueurIdWithLeaderWeb: JoueurAddLeaderCommand): Promise<JoueurWeb> {
         const {session: {numero}, joueurId, leader} = joueurIdWithLeaderWeb;
         const joueur = await this.enregistrerLeader(new Session(numero), new JoueurId(joueurId), leader);
         return mapJoueurDomainToWeb(joueur)
