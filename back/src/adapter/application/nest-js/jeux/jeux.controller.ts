@@ -1,6 +1,6 @@
-import {Controller, Post, Body, Param, Get, Put} from '@nestjs/common'
+import {Body, Controller, Get, Param, Post, Put, Redirect} from '@nestjs/common'
 import {JeuxService} from "./jeux.service";
-
+import {redirectUri} from "../utils/RedirectOtherSee";
 
 export type LeaderWeb = { identite: string, profession: string, age: number, photo: string }
 export type JoueurWeb = { id: string, couleur: string, pseudo?: string, leaderAChoisir?: LeaderWeb[], leader?: LeaderWeb }
@@ -11,14 +11,20 @@ export type SessionWeb = { numero: string }
 export type JoueurPseudoWeb = { id: string, couleur: string, pseudo: string }
 export type JoueursPseudoCommandWeb = { session: SessionWeb, joueurs: JoueurPseudoWeb[] }
 
-@Controller('jeux')
+const PATH = 'jeux'
+const redirect = redirectUri(PATH)
+
+@Controller(PATH)
 export class JeuxController {
+
     constructor(private readonly jeuxService: JeuxService) {
     }
 
     @Post()
-    async creer(@Body() nombreJoueur: nombreJoueur): Promise<SessionWeb> {
-        return this.jeuxService.creer(nombreJoueur.nombre)
+    @Redirect(PATH, 303)
+    async creer(@Body() nombreJoueur: nombreJoueur) {
+        const sessionWeb = await this.jeuxService.creer(nombreJoueur.nombre);
+        return {url: redirect(sessionWeb.numero)}
     }
 
     @Get(':id')
@@ -27,8 +33,10 @@ export class JeuxController {
     }
 
     @Put(':id/joueurs')
-    async addPseudo(@Body() joueursPseudoWeb: JoueursPseudoCommandWeb): Promise<JeuxWeb> {
-        return this.jeuxService.enregistrerLesPseudo(joueursPseudoWeb)
+    @Redirect(PATH,303)
+    async addPseudo(@Body() joueursPseudoWeb: JoueursPseudoCommandWeb) {
+        const jeuxWeb = await this.jeuxService.enregistrerLesPseudo(joueursPseudoWeb);
+        return {url: redirect(jeuxWeb.session.numero)}
     }
 
     // @Post(':id/joueurs')

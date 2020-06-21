@@ -1,15 +1,26 @@
-import {Body, Controller, Patch} from '@nestjs/common';
+import {Body, Controller, Get, Param, Patch, Redirect} from '@nestjs/common';
 import {JoueurAddLeaderCommand, JoueurService} from "./joueur.service";
+import {redirectUri} from "../utils/RedirectOtherSee";
 import {JoueurWeb} from "../jeux/jeux.controller";
+
+const PATH = 'joueurs'
+const redirect = redirectUri(PATH)
 
 @Controller('joueurs')
 export class JoueurController {
     constructor(private readonly service: JoueurService) {
     }
 
+    @Get(':id')
+    async get(@Param('id') id: string): Promise<JoueurWeb>{
+        return  this.service.afficherLeJoueurId(id);
+    }
+
     @Patch(':id/leader')
-    async ajouterUnLeader(@Body() joueurIdWithLeaderWeb: JoueurAddLeaderCommand): Promise<JoueurWeb> {
-        return this.service.enregistrer(joueurIdWithLeaderWeb)
+    @Redirect(PATH, 303)
+    async ajouterUnLeader(@Body() joueurIdWithLeaderWeb: JoueurAddLeaderCommand) {
+        const joueurWeb = await this.service.enregistrer(joueurIdWithLeaderWeb);
+        return {url: redirect(joueurWeb.id)}
     }
 
 }

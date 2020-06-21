@@ -8,7 +8,7 @@ import Joueur from "./entity/Joueur";
 
 export type EnregistrerUnLeader = (session: Session, joueurId: JoueurId, leaderNom: string) => Promise<Joueur>
 
-const MakeEnregistrerUnLeader = (jeuxRepository: JeuxRepository, joueurRepository: JoueurRepository,
+const makeEnregistrerUnLeader = (jeuxRepository: JeuxRepository, joueurRepository: JoueurRepository,
                                  leaderRepository: LeaderRepository) =>
     async (session: Session, joueurId: JoueurId, leaderNom: string): Promise<Joueur> => {
         const jeuxOptional = await jeuxRepository.findJeuxId(session.value);
@@ -31,4 +31,4 @@ const MakeEnregistrerUnLeader = (jeuxRepository: JeuxRepository, joueurRepositor
         return joueur
     }
 
-export default MakeEnregistrerUnLeader
+export default makeEnregistrerUnLeader

@@ -3,9 +3,9 @@ import Jeux from "./entity/Jeux";
 import Session from "./valueObject/Session";
 import SessionInexistanteError from "./SessionInexistanteError";
 
-export type AfficherLesJoueurs = (session: Session) => Promise<Jeux>
+export type AfficherLeJeux = (session: Session) => Promise<Jeux>
 
-const makeAfficherLesJoueursDeLaSession = (jeuxRepository: JeuxRepository): AfficherLesJoueurs => async (session: Session): Promise<Jeux> => {
+const makeAfficherLesJoueursDeLaSession = (jeuxRepository: JeuxRepository): AfficherLeJeux => async (session: Session): Promise<Jeux> => {
     const jeuxOptional = await jeuxRepository.findJeuxId(session.value);
     if(!jeuxOptional.isPresent()){
         new SessionInexistanteError(session)
