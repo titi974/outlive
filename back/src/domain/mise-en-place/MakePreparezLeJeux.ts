@@ -29,10 +29,12 @@ const makePreparezLeJeux = (jeuxRepository: JeuxRepository,
         const couleursDejaPrise: number[] = []
         do {
             const numero = getRandomInt(4, couleursDejaPrise);
-            const idJoueur = new JoueurId(uuidGenerator.execute());
-            couleursDejaPrise.push(numero)
-            joueurs.push(new Joueur(idJoueur, Object.values(COULEURS)[numero]))
-            i++
+            if (!couleursDejaPrise.includes(numero)) {
+                const idJoueur = new JoueurId(uuidGenerator.execute());
+                couleursDejaPrise.push(numero)
+                joueurs.push(new Joueur(idJoueur, Object.values(COULEURS)[numero]))
+                i++
+            }
         } while (i < nombreJoueur)
 
         jeux.ajouterDesJoueurs(joueurs)
