@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
-import Session from '@/views/Session'
+import Session from '@/views/ChoixLeader'
 
 Vue.use(VueRouter)
 

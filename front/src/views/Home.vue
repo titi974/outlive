@@ -55,16 +55,15 @@
       initilaiser: async function () {
         try {
           const { data } = await this.$http.post('/api/jeux', { nombre: this.nombre })
-          this.session = data.numero
-          const jeuxDatas = await this.$http.get(`/api/jeux/${data.numero}`)
-          this.jeux = jeuxDatas.data
+          this.session = data.session.numero
+          this.jeux = data
         } catch (e) {
           console.log(e)
         }
       },
       creerJoueur: async function (){
-        await this.$http.put(`/api/jeux/${this.$route.params.id}/joueurs`, { ...this.mapper() })
-        await this.$router.push({ name: 'Sessions', params: { id: this.session } })
+        const res = await this.$http.put(`/api/jeux/${this.session}/joueurs`, { ...this.mapper() })
+        await this.$router.push({ name: 'Sessions', params: { id: res.data.session.numero } })
       },
       mapper () {
         const { session, joueurs } = this.jeux
