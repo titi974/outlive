@@ -1,4 +1,4 @@
 type JoueurDTO = {
-    couleur: string,
-    pseudo: string
-}
+  couleur: string;
+  pseudo: string;
+};

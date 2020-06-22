@@ -1,3 +1,3 @@
 export interface Entity<T> {
-    sameEntityAs: (entity: T) => boolean
+  sameEntityAs: (entity: T) => boolean;
 }

@@ -1,32 +1,35 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn} from "typeorm";
-import {JeuxEntity} from "./Jeux.entity";
-import {LeaderEntity} from "./Leader.entity";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToOne,
+  PrimaryColumn,
+} from 'typeorm';
+import { JeuxEntity } from './Jeux.entity';
+import { LeaderEntity } from './Leader.entity';
 
-@Entity({name: 'Joueur'})
+@Entity({ name: 'Joueur' })
 export class JoueurEntity {
-    @PrimaryColumn()
-    id: string
+  @PrimaryColumn()
+  id: string;
 
-    @Column()
-    couleur: string
+  @Column()
+  couleur: string;
 
-    @Column()
-    jeuxId: string
+  @Column()
+  jeuxId: string;
 
-    @Column({default: ''})
-    pseudo: string
+  @Column({ default: '' })
+  pseudo: string;
 
-    @Column()
-    leaderId: number
+  @Column()
+  leaderId: number;
 
-    @ManyToOne(
-        type => JeuxEntity,
-        jeux => jeux.joueurs,
-    )
-    jeux: JeuxEntity
+  @ManyToOne((type) => JeuxEntity, (jeux) => jeux.joueurs)
+  jeux: JeuxEntity;
 
-    @OneToOne(type => LeaderEntity, {eager: true})
-    @JoinColumn()
-    leader: LeaderEntity
-
+  @OneToOne((type) => LeaderEntity, { eager: true })
+  @JoinColumn()
+  leader: LeaderEntity;
 }

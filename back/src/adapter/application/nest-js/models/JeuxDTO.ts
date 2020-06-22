@@ -1,5 +1,5 @@
 export type JeuxDTO = {
-    session: string,
-    dateDebut: string,
-    nbreJoueur: number
-}
+  session: string;
+  dateDebut: string;
+  nbreJoueur: number;
+};
