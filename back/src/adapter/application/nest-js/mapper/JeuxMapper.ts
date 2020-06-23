@@ -1,6 +1,8 @@
-import { JeuxWeb, JoueurWeb, LeaderWeb } from '../jeux/jeux.controller';
 import Jeux from '../../../../domain/mise-en-place/entity/Jeux';
 import { Optional } from '@eastbanctech/ts-optional';
+import { JeuxWeb } from '../models/JeuxWeb';
+import { JoueurWeb } from '../models/JoueurWeb';
+import { LeaderWeb } from '../models/LeaderWeb';
 
 export const mapDomainToWeb = (jeux: Jeux): JeuxWeb => {
   const joueursWeb = [] as JoueurWeb[];

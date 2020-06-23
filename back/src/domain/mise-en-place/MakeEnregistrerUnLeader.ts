@@ -21,11 +21,10 @@ const makeEnregistrerUnLeader = (
   joueurId: JoueurId,
   leaderNom: string,
 ): Promise<Joueur> => {
-  const jeuxOptional = await jeuxRepository.findJeuxId(session.value);
-  if (!jeuxOptional.isPresent()) {
-    throw new SessionInexistanteError(session);
-  }
-  const jeux = jeuxOptional.get();
+  const jeux = (await jeuxRepository.findJeuxId(session)).orElseThrow(
+    () => new SessionInexistanteError(session),
+  );
+
   const joueur = jeux.joueurs.find((joueur) => joueur.id.sameValueAs(joueurId));
 
   if (!joueur) {

@@ -5,13 +5,14 @@ import { LeaderRepositoryTypeORM } from '../../../repository/type-orm/LeaderRepo
 import makeEnregistrerUnLeader, {
   EnregistrerUnLeader,
 } from '../../../../domain/mise-en-place/MakeEnregistrerUnLeader';
-import { JoueurWeb, SessionWeb } from '../jeux/jeux.controller';
 import Session from '../../../../domain/mise-en-place/valueObject/Session';
 import { JoueurId } from '../../../../domain/mise-en-place/valueObject/JoueurId';
 import { mapJoueurDomainToWeb } from '../mapper/JoueurMapper';
 import makeAfficherUnJoueur, {
   AfficherLeJoueur,
 } from '../../../../domain/mise-en-place/MakeAfficherUnJoueur';
+import { JoueurWeb } from '../models/JoueurWeb';
+import { SessionWeb } from '../models/SessionWeb';
 
 export type JoueurAddLeaderCommand = {
   joueurId: string;

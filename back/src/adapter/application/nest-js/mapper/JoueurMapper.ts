@@ -1,9 +1,11 @@
-import { JoueurPseudoWeb, JoueurWeb, LeaderWeb } from '../jeux/jeux.controller';
+import { JoueurPseudoWeb } from '../jeux/jeux.controller';
 import { JoueurId } from '../../../../domain/mise-en-place/valueObject/JoueurId';
 import { JoueurPseudo } from '../../../../domain/mise-en-place/MakeEnregistrerLesPseudo';
 import Joueur from '../../../../domain/mise-en-place/entity/Joueur';
 import { Optional } from '@eastbanctech/ts-optional';
 import { mapLeaderDomainToWeb } from './LeaderMapper';
+import { JoueurWeb } from '../models/JoueurWeb';
+import { LeaderWeb } from '../models/LeaderWeb';
 
 export const mapJoueurPseudoToDomain = (
   joueurWeb: JoueurPseudoWeb,

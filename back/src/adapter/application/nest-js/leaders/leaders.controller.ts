@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { LeadersService } from './leaders.service';
-import { JoueurWeb, SessionWeb } from '../jeux/jeux.controller';
+import { JoueurWeb } from '../models/JoueurWeb';
+import PathURL from '../utils/PathURL';
 
-@Controller('leaders')
+@Controller(PathURL.LEADERS)
 export class LeadersController {
   constructor(private readonly leadersService: LeadersService) {}
 

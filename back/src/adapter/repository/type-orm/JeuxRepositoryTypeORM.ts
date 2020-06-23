@@ -7,6 +7,7 @@ import {
   mapJeuxDomainToPersistance,
   mapJeuxPersistanceToDomain,
 } from './mapper/JeuxMapperPersistance';
+import Session from '../../../domain/mise-en-place/valueObject/Session';
 
 @EntityRepository(JeuxEntity)
 export class JeuxRepositoryTypeORM extends Repository<JeuxEntity>
@@ -20,9 +21,9 @@ export class JeuxRepositoryTypeORM extends Repository<JeuxEntity>
     await this.save(jeuxEntity);
   }
 
-  async findJeuxId(id: string): Promise<Optional<Jeux>> {
+  async findJeuxId(id: Session): Promise<Optional<Jeux>> {
     let jeux: Jeux = null;
-    const jeuxEntity = await this.findOne(id);
+    const jeuxEntity = await this.findOne(id.value);
     if (jeuxEntity) {
       jeux = mapJeuxPersistanceToDomain(jeuxEntity);
     }

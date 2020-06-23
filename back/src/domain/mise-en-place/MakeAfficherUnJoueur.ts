@@ -1,16 +1,13 @@
 import Joueur from './entity/Joueur';
 import JoueurRepository from './port/JoueurRepository';
+import JoueurInexistantError from "./JoueurInexistantError";
 
 export type AfficherLeJoueur = (id: string) => Promise<Joueur>;
 
 const makeAfficherUnJoueur = (
   joueurRepository: JoueurRepository,
 ): AfficherLeJoueur => async (id: string): Promise<Joueur> => {
-  const joueurOptional = await joueurRepository.findJoueurById(id);
-  if (!joueurOptional.isPresent()) {
-    throw new Error('Joueur inconnu');
-  }
-  return joueurOptional.get();
+  return (await joueurRepository.findJoueurById(id)).orElseThrow(() => new JoueurInexistantError(id));
 };
 
 export default makeAfficherUnJoueur;

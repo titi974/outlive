@@ -1,3 +1,7 @@
-export const URI = `/api`;
-export const redirectUri = (parent: string) => (param?: string) =>
-  `${URI}/${parent}${param ? `/${param}` : ''}`;
+import PathURL from './PathURL';
+
+export abstract class RedirectOtherSee {
+  redirect(path: PathURL, ...uri) {
+    return { url: `/${PathURL.API}/${path}/${uri.join('/')}` };
+  }
+}

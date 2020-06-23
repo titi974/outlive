@@ -5,6 +5,7 @@ import Joueur from './entity/Joueur';
 import Jeux from './entity/Jeux';
 import { Optional } from '@eastbanctech/ts-optional';
 import { JoueurId } from './valueObject/JoueurId';
+import SessionInexistanteError from './SessionInexistanteError';
 
 export type EnregistrerLesPseudo = (
   session: Session,
@@ -25,11 +26,9 @@ export const makeEnregistrerLesPseudo = (
   jeuxRepository: JeuxRepository,
   joueurRepository: JoueurRepository,
 ) => async (session: Session, joueursPseudo: JoueurPseudo[]): Promise<Jeux> => {
-  const jeuxOptional = await jeuxRepository.findJeuxId(session.value);
-  if (!jeuxOptional.isPresent()) {
-    throw new Error(`La session: ${session.value} n'existe pas`);
-  }
-  const jeux = jeuxOptional.get();
+  const jeux = (await jeuxRepository.findJeuxId(session)).orElseThrow(
+    () => new SessionInexistanteError(session),
+  );
   const findJoueur = findJoueurPseudo(joueursPseudo);
   jeux.joueurs.forEach((joueur) => {
     const pseudo = findJoueur(joueur).orElseThrow(() => new Error('joueur'));

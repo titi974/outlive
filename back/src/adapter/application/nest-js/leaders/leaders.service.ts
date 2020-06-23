@@ -4,9 +4,10 @@ import { JeuxRepositoryTypeORM } from '../../../repository/type-orm/JeuxReposito
 import MakeGenererLeadersAleatoire, {
   GenererLeadersAleatoire,
 } from '../../../../domain/mise-en-place/MakeGenererLeadersAleatoire';
-import { JoueurWeb, SessionWeb } from '../jeux/jeux.controller';
 import Session from '../../../../domain/mise-en-place/valueObject/Session';
 import { mapJoueurDomainToWeb } from '../mapper/JoueurMapper';
+import { JoueurWeb } from '../models/JoueurWeb';
+import { SessionWeb } from '../models/SessionWeb';
 
 @Injectable()
 export class LeadersService {

@@ -11,11 +11,10 @@ const MakeGenererLeadersAleatoire = (
   jeuxRepository: JeuxRepository,
   leadersRepository: LeaderRepository,
 ): GenererLeadersAleatoire => async (session: Session): Promise<Joueur[]> => {
-  const jeuxOptional = await jeuxRepository.findJeuxId(session.value);
-  if (!jeuxOptional.isPresent()) {
-    new SessionInexistanteError(session);
-  }
-  const { joueurs } = jeuxOptional.get();
+  const jeux = (await jeuxRepository.findJeuxId(session)).orElseThrow(
+    () => new SessionInexistanteError(session),
+  );
+  const { joueurs } = jeux;
   const leaders: Leader[] = await leadersRepository.allLeaders();
   const nombreDeLeader = leaders.length;
   const leaderGenerate: Leader[] = [];

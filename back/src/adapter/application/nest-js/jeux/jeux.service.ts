@@ -8,11 +8,7 @@ import makePreparezLeJeux, {
 import makeAfficherUnJeux, {
   AfficherLeJeux,
 } from '../../../../domain/mise-en-place/MakeAfficherLesJoueursDeLaSession';
-import {
-  JeuxWeb,
-  JoueursPseudoCommandWeb,
-  SessionWeb,
-} from './jeux.controller';
+import { JoueursPseudoCommandWeb } from './jeux.controller';
 import * as mapperSession from '../mapper/SessionMapper';
 import * as mapperJeux from '../mapper/JeuxMapper';
 import * as mapperJoueur from '../mapper/JoueurMapper';
@@ -21,6 +17,8 @@ import {
   EnregistrerLesPseudo,
   makeEnregistrerLesPseudo,
 } from '../../../../domain/mise-en-place/MakeEnregistrerLesPseudo';
+import { JeuxWeb } from '../models/JeuxWeb';
+import { SessionWeb } from '../models/SessionWeb';
 
 @Injectable()
 export class JeuxService {

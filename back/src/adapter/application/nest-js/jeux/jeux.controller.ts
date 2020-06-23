@@ -8,48 +8,29 @@ import {
   Redirect,
 } from '@nestjs/common';
 import { JeuxService } from './jeux.service';
-import { redirectUri } from '../utils/RedirectOtherSee';
-
-export type LeaderWeb = {
-  identite: string;
-  profession: string;
-  age: number;
-  photo: string;
-};
-export type JoueurWeb = {
-  id: string;
-  couleur: string;
-  pseudo?: string;
-  leaderAChoisir?: LeaderWeb[];
-  leader?: LeaderWeb;
-};
-export type JeuxWeb = {
-  session: SessionWeb;
-  dateDebut: string;
-  nombreJoueur: number;
-  joueurs: JoueurWeb[];
-};
+import { RedirectOtherSee } from '../utils/RedirectOtherSee';
+import { JeuxWeb } from '../models/JeuxWeb';
+import { SessionWeb } from '../models/SessionWeb';
+import PathURL from '../utils/PathURL';
 
 export type nombreJoueur = { nombre: number };
-export type SessionWeb = { numero: string };
 export type JoueurPseudoWeb = { id: string; couleur: string; pseudo: string };
 export type JoueursPseudoCommandWeb = {
   session: SessionWeb;
   joueurs: JoueurPseudoWeb[];
 };
 
-const PATH = 'jeux';
-const redirect = redirectUri(PATH);
-
-@Controller(PATH)
-export class JeuxController {
-  constructor(private readonly jeuxService: JeuxService) {}
+@Controller(PathURL.JEUX)
+export class JeuxController extends RedirectOtherSee {
+  constructor(private readonly jeuxService: JeuxService) {
+    super();
+  }
 
   @Post()
-  @Redirect(PATH, 303)
+  @Redirect(PathURL.JEUX, 303)
   async creer(@Body() nombreJoueur: nombreJoueur) {
     const sessionWeb = await this.jeuxService.creer(nombreJoueur.nombre);
-    return { url: redirect(sessionWeb.numero) };
+    return this.redirect(PathURL.JEUX, sessionWeb.numero);
   }
 
   @Get(':id')
@@ -58,16 +39,16 @@ export class JeuxController {
   }
 
   @Put(':id/joueurs')
-  @Redirect(PATH, 303)
+  @Redirect(PathURL.JEUX, 303)
   async addPseudo(@Body() joueursPseudoWeb: JoueursPseudoCommandWeb) {
     const jeuxWeb = await this.jeuxService.enregistrerLesPseudo(
       joueursPseudoWeb,
     );
-    return { url: redirect(jeuxWeb.session.numero) };
+    return this.redirect(PathURL.JEUX, jeuxWeb.session.numero);
   }
 
   // @Post(':id/joueurs')
-  // async ajouterJoueur(@Body() joueurDTO: JoueurDTO, @Param('id') idJeux: string): Promise<JeuxDTO> {
+  // async ajouterJoueur(@Body() joueurDTO: JoueurWeb, @Param('id') idJeux: string): Promise<JeuxWeb> {
   //     try {
   //         const jeuxDTO = await this.jeuxService.ajouterJoueur(idJeux, joueurDTO.couleur)
   //         return Promise.resolve(jeuxDTO)

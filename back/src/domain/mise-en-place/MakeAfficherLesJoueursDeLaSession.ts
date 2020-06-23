@@ -8,11 +8,9 @@ export type AfficherLeJeux = (session: Session) => Promise<Jeux>;
 const makeAfficherLesJoueursDeLaSession = (
   jeuxRepository: JeuxRepository,
 ): AfficherLeJeux => async (session: Session): Promise<Jeux> => {
-  const jeuxOptional = await jeuxRepository.findJeuxId(session.value);
-  if (!jeuxOptional.isPresent()) {
-    new SessionInexistanteError(session);
-  }
-  return Promise.resolve(jeuxOptional.get());
+  return (await jeuxRepository.findJeuxId(session)).orElseThrow(
+    () => new SessionInexistanteError(session),
+  );
 };
 
 export default makeAfficherLesJoueursDeLaSession;
