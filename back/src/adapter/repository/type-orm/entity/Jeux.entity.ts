@@ -12,9 +12,9 @@ export class JeuxEntity {
   @Column()
   nbreJoueur: number;
 
-  @OneToMany((type) => JoueurEntity, (joueur) => joueur.jeux, {
-    eager: true,
-  })
+  @OneToMany(
+      (type) => JoueurEntity,
+      (joueur) => joueur.jeux)
   @JoinColumn()
-  joueurs: JoueurEntity[];
+  joueurs: Promise<JoueurEntity[]>;
 }

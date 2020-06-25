@@ -8,6 +8,8 @@ import {
   mapJoueurPersistanceToDomain,
 } from './mapper/JoueurMapperPersistance';
 import { Optional } from '@eastbanctech/ts-optional';
+import { mapLeaderDomainToWeb } from '../../application/nest-js/mapper/LeaderMapper'
+import { mapLeaderPersistanceToDomain } from './mapper/LeaderMapperPersistance'
 
 @EntityRepository(JoueurEntity)
 export class JoueurRepositoryTypeORM extends Repository<JoueurEntity>
@@ -36,7 +38,11 @@ export class JoueurRepositoryTypeORM extends Repository<JoueurEntity>
     let joueur: Joueur = null;
     const joueurEntity = await this.findOne(id);
     if (joueurEntity) {
+      const leaderEntity = await joueurEntity.leader
       joueur = mapJoueurPersistanceToDomain(joueurEntity);
+      if(leaderEntity) {
+        joueur.ajouterLeader(mapLeaderPersistanceToDomain(leaderEntity))
+      }
     }
     return Optional.ofNullable(joueur);
   }

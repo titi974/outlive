@@ -8,6 +8,8 @@ import {
   mapJeuxPersistanceToDomain,
 } from './mapper/JeuxMapperPersistance';
 import Session from '../../../domain/mise-en-place/valueObject/Session';
+import { mapJoueurPersistanceToDomain } from './mapper/JoueurMapperPersistance'
+import { mapLeaderPersistanceToDomain } from './mapper/LeaderMapperPersistance'
 
 @EntityRepository(JeuxEntity)
 export class JeuxRepositoryTypeORM extends Repository<JeuxEntity>
@@ -21,11 +23,22 @@ export class JeuxRepositoryTypeORM extends Repository<JeuxEntity>
     await this.save(jeuxEntity);
   }
 
-  async findJeuxId(id: Session): Promise<Optional<Jeux>> {
+  async afficherLeJeux(id: Session): Promise<Optional<Jeux>> {
     let jeux: Jeux = null;
     const jeuxEntity = await this.findOne(id.value);
     if (jeuxEntity) {
       jeux = mapJeuxPersistanceToDomain(jeuxEntity);
+      const joueurEntities = await jeuxEntity.joueurs
+      const joueursPromise = joueurEntities.map(async joueurEntitie => {
+        const joueur = mapJoueurPersistanceToDomain(joueurEntitie)
+        const leaderEntity = await joueurEntitie.leader
+        if(leaderEntity) {
+          joueur.ajouterLeader(mapLeaderPersistanceToDomain(leaderEntity))
+        }
+        return joueur
+      })
+      const joueurs = await Promise.all(joueursPromise)
+      jeux.ajouterDesJoueurs(joueurs)
     }
     return Optional.ofNullable(jeux);
   }

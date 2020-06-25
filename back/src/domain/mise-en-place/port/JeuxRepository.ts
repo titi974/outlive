@@ -4,5 +4,5 @@ import Session from '../valueObject/Session';
 
 export default interface JeuxRepository {
   creer: (jeux: Jeux) => Promise<void>;
-  findJeuxId: (id: Session) => Promise<Optional<Jeux>>;
+  afficherLeJeux: (id: Session) => Promise<Optional<Jeux>>;
 }

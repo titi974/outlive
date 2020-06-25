@@ -27,9 +27,9 @@ export class JoueurEntity {
   leaderId: number;
 
   @ManyToOne((type) => JeuxEntity, (jeux) => jeux.joueurs)
-  jeux: JeuxEntity;
+  jeux: Promise<JeuxEntity>;
 
-  @OneToOne((type) => LeaderEntity, { eager: true })
+  @OneToOne((type) => LeaderEntity)
   @JoinColumn()
-  leader: LeaderEntity;
+  leader: Promise<LeaderEntity>;
 }

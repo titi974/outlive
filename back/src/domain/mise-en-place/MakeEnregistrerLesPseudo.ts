@@ -26,7 +26,7 @@ export const makeEnregistrerLesPseudo = (
   jeuxRepository: JeuxRepository,
   joueurRepository: JoueurRepository,
 ) => async (session: Session, joueursPseudo: JoueurPseudo[]): Promise<Jeux> => {
-  const jeux = (await jeuxRepository.findJeuxId(session)).orElseThrow(
+  const jeux = (await jeuxRepository.afficherLeJeux(session)).orElseThrow(
     () => new SessionInexistanteError(session),
   );
   const findJoueur = findJoueurPseudo(joueursPseudo);

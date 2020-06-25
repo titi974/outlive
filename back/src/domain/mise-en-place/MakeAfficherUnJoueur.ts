@@ -7,7 +7,8 @@ export type AfficherLeJoueur = (id: string) => Promise<Joueur>;
 const makeAfficherUnJoueur = (
   joueurRepository: JoueurRepository,
 ): AfficherLeJoueur => async (id: string): Promise<Joueur> => {
-  return (await joueurRepository.findJoueurById(id)).orElseThrow(() => new JoueurInexistantError(id));
+  return (await joueurRepository.findJoueurById(id))
+      .orElseThrow(() => new JoueurInexistantError(id));
 };
 
 export default makeAfficherUnJoueur;

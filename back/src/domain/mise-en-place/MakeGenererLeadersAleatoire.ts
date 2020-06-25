@@ -11,7 +11,7 @@ const MakeGenererLeadersAleatoire = (
   jeuxRepository: JeuxRepository,
   leadersRepository: LeaderRepository,
 ): GenererLeadersAleatoire => async (session: Session): Promise<Joueur[]> => {
-  const jeux = (await jeuxRepository.findJeuxId(session)).orElseThrow(
+  const jeux = (await jeuxRepository.afficherLeJeux(session)).orElseThrow(
     () => new SessionInexistanteError(session),
   );
   const { joueurs } = jeux;

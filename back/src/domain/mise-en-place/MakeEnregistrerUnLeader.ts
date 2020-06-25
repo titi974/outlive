@@ -21,7 +21,7 @@ const makeEnregistrerUnLeader = (
   joueurId: JoueurId,
   leaderNom: string,
 ): Promise<Joueur> => {
-  const jeux = (await jeuxRepository.findJeuxId(session)).orElseThrow(
+  const jeux = (await jeuxRepository.afficherLeJeux(session)).orElseThrow(
     () => new SessionInexistanteError(session),
   );
 
