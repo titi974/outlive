@@ -1,14 +1,12 @@
 import { Module } from '@nestjs/common';
 import { JeuxController } from './jeux.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { JeuxRepositoryTypeORM } from '../../../repository/type-orm/JeuxRepositoryTypeORM';
 import { JeuxService } from './jeux.service';
 import { UUIDGenerator } from '../../../id-generator/UUIDGenerator';
-import { JoueurRepositoryTypeORM } from '../../../repository/type-orm/JoueurRepositoryTypeORM';
+import { SharedModule } from '../shared/shared.module'
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([JeuxRepositoryTypeORM, JoueurRepositoryTypeORM]),
+    SharedModule
   ],
   providers: [JeuxService, UUIDGenerator],
   controllers: [JeuxController],

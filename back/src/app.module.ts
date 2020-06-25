@@ -7,9 +7,10 @@ import { Interceptor } from './adapter/application/nest-js/interceptor/Intercept
 import { JeuxModule } from './adapter/application/nest-js/jeux/jeux.module';
 import { LeadersModule } from './adapter/application/nest-js/leaders/leaders.module';
 import { JoueurModule } from './adapter/application/nest-js/joueur/joueur.module';
+import { SharedModule } from './adapter/application/nest-js/shared/shared.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), JeuxModule, LeadersModule, JoueurModule],
+  imports: [JeuxModule, LeadersModule, JoueurModule, SharedModule],
   controllers: [AppController],
   providers: [
     AppService,

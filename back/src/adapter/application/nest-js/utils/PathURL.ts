@@ -3,5 +3,5 @@ export default class PathURL {
   public static JEUX = 'jeux';
   public static JOUEURS = 'joueurs';
   public static LEADERS = 'leaders';
-  public static BUNKERS = 'bunkers';
+  public static ABRIS = 'abris';
 }
