@@ -29,7 +29,7 @@
     },
     computed: {
       linkPhoto () {
-        return require(`@/assets/${this.photo}.jpg`)
+        return require(`@/assets/leaders/${this.photo}.jpg`)
       }
     }
   }
