@@ -1,45 +1,39 @@
-import JeuxRepository from './port/JeuxRepository';
-import JoueurRepository from './port/JoueurRepository';
-import LeaderRepository from './port/LeaderRepository';
-import Session from './valueObject/Session';
-import { JoueurId } from './valueObject/JoueurId';
-import SessionInexistanteError from './SessionInexistanteError';
-import Joueur from './entity/Joueur';
+import JeuxRepository from './port/JeuxRepository'
+import JoueurRepository from './port/JoueurRepository'
+import LeaderRepository from './port/LeaderRepository'
+import Session from './valueObject/Session'
+import { JoueurId } from './valueObject/JoueurId'
+import SessionInexistanteError from './SessionInexistanteError'
+import Joueur from './entity/Joueur'
 
 export type EnregistrerUnLeader = (
-  session: Session,
-  joueurId: JoueurId,
-  leaderNom: string,
-) => Promise<Joueur>;
+    session: Session,
+    joueurId: JoueurId,
+    leaderNom: string,
+) => Promise<Joueur>
 
 const makeEnregistrerUnLeader = (
-  jeuxRepository: JeuxRepository,
-  joueurRepository: JoueurRepository,
-  leaderRepository: LeaderRepository,
-) => async (
-  session: Session,
-  joueurId: JoueurId,
-  leaderNom: string,
-): Promise<Joueur> => {
-  const jeux = (await jeuxRepository.afficherLeJeux(session)).orElseThrow(
-    () => new SessionInexistanteError(session),
-  );
+    jeuxRepository: JeuxRepository,
+    joueurRepository: JoueurRepository,
+    leaderRepository: LeaderRepository,
+) => async (session: Session, joueurId: JoueurId, leaderNom: string): Promise<Joueur> => {
+    const jeux = (await jeuxRepository.afficherLeJeux(session)).orElseThrow(
+        () => new SessionInexistanteError(session),
+    )
 
-  const joueur = jeux.joueurs.find((joueur) => joueur.id.sameValueAs(joueurId));
+    const joueur = jeux.joueurs.find(joueur => joueur.id.sameValueAs(joueurId))
 
-  if (!joueur) {
-    throw new Error(
-      `joueur numéro: ${joueurId} n'existe pas pour la session: ${session.value}`,
-    );
-  }
+    if (!joueur) {
+        throw new Error(`joueur numéro: ${joueurId} n'existe pas pour la session: ${session.value}`)
+    }
 
-  const leader = await leaderRepository.leaderByNom(leaderNom);
+    const leader = await leaderRepository.leaderByNom(leaderNom)
 
-  joueur.ajouterLeader(leader);
+    joueur.ajouterLeader(leader)
 
-  await joueurRepository.enregistrer(joueur);
+    await joueurRepository.enregistrer(joueur)
 
-  return joueur;
-};
+    return joueur
+}
 
-export default makeEnregistrerUnLeader;
+export default makeEnregistrerUnLeader

@@ -1,6 +1,6 @@
-import Session from '../../../../domain/mise-en-place/valueObject/Session';
-import { SessionWeb } from '../models/SessionWeb';
+import Session from '../../../../domain/mise-en-place/valueObject/Session'
+import { SessionWeb } from '../models/SessionWeb'
 
 export const mapDomainToWeb = (session: Session): SessionWeb => {
-  return { numero: session.value };
-};
+    return { numero: session.value }
+}

@@ -1,9 +1,9 @@
-import { LeaderWeb } from './LeaderWeb';
+import { LeaderWeb } from './LeaderWeb'
 
 export type JoueurWeb = {
-  id?: string;
-  couleur?: string;
-  pseudo?: string;
-  leaderAChoisir?: LeaderWeb[];
-  leader?: LeaderWeb;
-};
+    id?: string
+    couleur?: string
+    pseudo?: string
+    leaderAChoisir?: LeaderWeb[]
+    leader?: LeaderWeb
+}

@@ -1,1 +1,1 @@
-export type SessionWeb = { numero: string };
+export type SessionWeb = { numero: string }

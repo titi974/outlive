@@ -1,7 +1,14 @@
-import PathURL from './PathURL';
+import PathURL from './PathURL'
 
 export abstract class RedirectOtherSee {
-  redirect(path: PathURL, ...uri) {
-    return { url: `/${PathURL.API}/${path}/${uri.join('/')}` };
-  }
+    redirect(root: PathURL, url: { uri?: string[], query?: string[] }) {
+        let location = `/${PathURL.API}/${root}`
+        if (Array.isArray(url.uri)) {
+            location += `/${url.uri.join('/')}`
+        }
+        if (Array.isArray(url.query)) {
+            location += `?${url.query.join('&')}`
+        }
+        return { url: location }
+    }
 }

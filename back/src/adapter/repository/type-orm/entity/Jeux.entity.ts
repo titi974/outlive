@@ -1,20 +1,21 @@
-import { Column, Entity, JoinColumn, OneToMany, PrimaryColumn } from 'typeorm';
-import { JoueurEntity } from './Joueur.entity';
+import { Column, Entity, JoinColumn, OneToMany, PrimaryColumn } from 'typeorm'
+import { JoueurEntity } from './Joueur.entity'
 
 @Entity({ name: 'Jeux' })
 export class JeuxEntity {
-  @PrimaryColumn()
-  id: string;
+    @PrimaryColumn()
+    id: string
 
-  @Column()
-  dateDebut: Date;
+    @Column()
+    dateDebut: Date
 
-  @Column()
-  nbreJoueur: number;
+    @Column()
+    nbreJoueur: number
 
-  @OneToMany(
-      (type) => JoueurEntity,
-      (joueur) => joueur.jeux)
-  @JoinColumn()
-  joueurs: Promise<JoueurEntity[]>;
+    @OneToMany(
+        type => JoueurEntity,
+        joueur => joueur.jeux,
+    )
+    @JoinColumn()
+    joueurs: Promise<JoueurEntity[]>
 }
