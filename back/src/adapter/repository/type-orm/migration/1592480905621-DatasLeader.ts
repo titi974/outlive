@@ -21,7 +21,3 @@ export class DatasLeader1592480905621 implements MigrationInterface {
 
     public async down(queryRunne: QueryRunner): Promise<void> {}
 }
-
-//'DROP COLUMN identite, ' +
-//             'DROP COLUMN profession,' +
-//             'DROP COLUMN age
