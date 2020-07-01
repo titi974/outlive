@@ -11,6 +11,8 @@ import { Optional } from '@eastbanctech/ts-optional'
 import { mapLeaderDomainToWeb } from '../../application/nest-js/mapper/LeaderMapper'
 import { mapLeaderPersistanceToDomain } from './mapper/LeaderMapperPersistance'
 import { JoueurId } from '../../../domain/mise-en-place/valueObject/JoueurId'
+import { mapEquipementPersistanceToDomain } from './mapper/EquipementMapperPersistance'
+import Equipement from '../../../domain/mise-en-place/entity/Equipement'
 
 @EntityRepository(JoueurEntity)
 export class JoueurRepositoryTypeORM extends Repository<JoueurEntity> implements JoueurRepository {
@@ -41,7 +43,7 @@ export class JoueurRepositoryTypeORM extends Repository<JoueurEntity> implements
             const leaderEntity = await joueurEntity.leader
             joueur = mapJoueurPersistanceToDomain(joueurEntity)
             if (leaderEntity) {
-                joueur.ajouterLeader(mapLeaderPersistanceToDomain(leaderEntity))
+                joueur.ajouterLeader(mapLeaderPersistanceToDomain(leaderEntity, {} as Equipement))
             }
         }
         return Optional.ofNullable(joueur)
@@ -57,7 +59,9 @@ export class JoueurRepositoryTypeORM extends Repository<JoueurEntity> implements
                 const leaderEntity = await joueurEntity.leader
                 const joueur = mapJoueurPersistanceToDomain(joueurEntity)
                 if (leaderEntity) {
-                    joueur.ajouterLeader(mapLeaderPersistanceToDomain(leaderEntity))
+                    const equipementEntity = await leaderEntity.equipement
+                    const equipement = mapEquipementPersistanceToDomain(equipementEntity)
+                    joueur.ajouterLeader(mapLeaderPersistanceToDomain(leaderEntity, equipement))
                 }
                 return joueur
             }),

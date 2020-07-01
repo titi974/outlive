@@ -4,14 +4,18 @@ import { JoueurId } from '../valueObject/JoueurId'
 import Leader from './Leader'
 import MaximumLeaderAchoisirError from '../error/MaximumLeaderAchoisirError'
 import Abris from './Abris'
+import Equipement from './Equipement'
+import { Optional } from '@eastbanctech/ts-optional'
 
 export default class Joueur implements Entity<Joueur> {
     private monPseudo: string
     public readonly leadersAChoisr: Leader[] = []
     private leader: Leader
     private abris: Abris
+    public equipements: Equipement[] = []
 
-    constructor(public readonly id: JoueurId, public readonly couleur: COULEURS) {}
+    constructor(public readonly id: JoueurId, public readonly couleur: COULEURS) {
+    }
 
     get pseudo(): string {
         return this.monPseudo
@@ -49,5 +53,12 @@ export default class Joueur implements Entity<Joueur> {
             throw new Error('Abris déjà affecté')
         }
         this.abris = abris
+    }
+
+    ajouterEquipement(equipement: Equipement) {
+        if(this.equipements.includes(equipement)){
+            throw new Error(`Vous avez déjà cette équipement: ${equipement.nom}`)
+        }
+        this.equipements.push(equipement)
     }
 }

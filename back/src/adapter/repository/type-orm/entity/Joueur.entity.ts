@@ -1,6 +1,18 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn } from 'typeorm'
+import {
+    Column,
+    Entity,
+    JoinColumn,
+    JoinTable,
+    ManyToMany,
+    ManyToOne,
+    OneToMany,
+    OneToOne,
+    PrimaryColumn,
+} from 'typeorm'
 import { JeuxEntity } from './Jeux.entity'
+import { LeaderEntity } from './Leader.entity'
 import { AbrisEntity } from './Abris.entity'
+import EquipementEntity from './Equipement.entity'
 
 @Entity({ name: 'Joueur' })
 export class JoueurEntity {
@@ -28,6 +40,10 @@ export class JoueurEntity {
     )
     jeux: Promise<JeuxEntity>
 
+    @OneToOne(type => LeaderEntity)
+    @JoinColumn()
+    leader: Promise<LeaderEntity>
+
     @OneToOne(
         type => AbrisEntity,
         abris => abris.joueur,
@@ -35,4 +51,8 @@ export class JoueurEntity {
     )
     @JoinColumn()
     abris: Promise<AbrisEntity>
+
+    @ManyToMany(type => EquipementEntity)
+    @JoinTable()
+    equipements: Promise<EquipementEntity[]>
 }

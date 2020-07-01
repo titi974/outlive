@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm'
 import { RESSOURCES } from '../../../../domain/constante/RESSOURCES'
+import EquipementEntity from './Equipement.entity'
 
 export type ressourcesEntity = { name: RESSOURCES; quantite: number }
 
@@ -22,4 +23,13 @@ export class LeaderEntity {
 
     @Column({ type: 'json' })
     ressources: ressourcesEntity[]
+
+    @Column()
+    equipementId: number
+
+    @OneToOne(type => EquipementEntity,
+            equipement => equipement.leader)
+    @JoinColumn()
+    equipement: Promise<EquipementEntity>
+
 }

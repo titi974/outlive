@@ -1,5 +1,6 @@
 import LeaderId from '../valueObject/LeaderId'
 import Ressource from './Ressource'
+import Equipement from './Equipement'
 
 export default class Leader {
     constructor(
@@ -9,6 +10,7 @@ export default class Leader {
         public readonly age: number,
         public readonly photo: string,
         private readonly ressources: Ressource[],
+        public readonly equipement: Equipement
     ) {}
 
     get lesRessources(): Ressource[] {

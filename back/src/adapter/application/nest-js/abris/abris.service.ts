@@ -9,6 +9,7 @@ import AbrisRepositoryTypeORM from '../../../repository/type-orm/AbrisRepository
 import Session from '../../../../domain/mise-en-place/valueObject/Session'
 import { JoueurId } from '../../../../domain/mise-en-place/valueObject/JoueurId'
 import { AbrisId } from '../../../../domain/mise-en-place/valueObject/AbrisId'
+import EquipementRepositoryTypeORM from '../../../repository/type-orm/EquipementRepositoryTypeORM'
 
 @Injectable()
 export class AbrisService {
@@ -17,12 +18,14 @@ export class AbrisService {
     constructor(
         uuidGenerator: UUIDGenerator,
         joueurRepository: JoueurRepositoryTypeORM,
+        equipementRepository: EquipementRepositoryTypeORM,
         abrisRepository: AbrisRepositoryTypeORM,
     ) {
         this.initiliserRessourceDAbris = MakeInitiliserRessourceDAbris(
             uuidGenerator,
             joueurRepository,
             abrisRepository,
+            equipementRepository
         )
     }
 

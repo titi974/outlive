@@ -5,6 +5,7 @@ import { JoueurRepositoryTypeORM } from '../../../repository/type-orm/JoueurRepo
 import { LeaderRepositoryTypeORM } from '../../../repository/type-orm/LeaderRepositoryTypeORM'
 import { configORM } from '../../../repository/type-orm/ormconfig'
 import AbrisRepositoryTypeORM from '../../../repository/type-orm/AbrisRepositoryTypeORM'
+import EquipementRepositoryTypeORM from '../../../repository/type-orm/EquipementRepositoryTypeORM'
 
 @Module({
     imports: [
@@ -14,6 +15,7 @@ import AbrisRepositoryTypeORM from '../../../repository/type-orm/AbrisRepository
             JoueurRepositoryTypeORM,
             LeaderRepositoryTypeORM,
             AbrisRepositoryTypeORM,
+            EquipementRepositoryTypeORM
         ]),
     ],
     exports: [
@@ -22,6 +24,7 @@ import AbrisRepositoryTypeORM from '../../../repository/type-orm/AbrisRepository
             JoueurRepositoryTypeORM,
             LeaderRepositoryTypeORM,
             AbrisRepositoryTypeORM,
+            EquipementRepositoryTypeORM
         ]),
     ],
 })

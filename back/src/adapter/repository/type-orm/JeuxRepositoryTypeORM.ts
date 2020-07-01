@@ -10,6 +10,8 @@ import {
 import Session from '../../../domain/mise-en-place/valueObject/Session'
 import { mapJoueurPersistanceToDomain } from './mapper/JoueurMapperPersistance'
 import { mapLeaderPersistanceToDomain } from './mapper/LeaderMapperPersistance'
+import Equipement from '../../../domain/mise-en-place/entity/Equipement'
+import { mapEquipementPersistanceToDomain } from './mapper/EquipementMapperPersistance'
 
 @EntityRepository(JeuxEntity)
 export class JeuxRepositoryTypeORM extends Repository<JeuxEntity> implements JeuxRepository {
@@ -32,7 +34,8 @@ export class JeuxRepositoryTypeORM extends Repository<JeuxEntity> implements Jeu
                 const joueur = mapJoueurPersistanceToDomain(joueurEntitie)
                 const leaderEntity = await joueurEntitie.leader
                 if (leaderEntity) {
-                    joueur.ajouterLeader(mapLeaderPersistanceToDomain(leaderEntity))
+                    const equipementEntity = await leaderEntity.equipement
+                    joueur.ajouterLeader(mapLeaderPersistanceToDomain(leaderEntity, mapEquipementPersistanceToDomain(equipementEntity)))
                 }
                 return joueur
             })
