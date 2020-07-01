@@ -63,7 +63,7 @@
       },
       creerJoueur: async function (){
         const res = await this.$http.put(`/api/jeux/${this.session}/joueurs`, { ...this.mapper() })
-        await this.$router.push({ name: 'Sessions', params: { id: res.data.session.numero } })
+        await this.$router.push({ name: 'ChoixDuLeader', params: { idSession: res.data.session.numero } })
       },
       mapper () {
         const { session, joueurs } = this.jeux

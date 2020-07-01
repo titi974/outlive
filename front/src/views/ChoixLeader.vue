@@ -22,7 +22,8 @@
         </v-row>
         <v-row>
             <v-col offset="4" cols="4">
-                <v-btn :disabled="!nextIsActive" class="button" color="primary">Selection finie</v-btn>
+                <v-btn :disabled="!nextIsActive" class="button" color="primary" @click="creationAbris">Selection finie
+                </v-btn>
             </v-col>
         </v-row>
     </v-container>
@@ -33,32 +34,39 @@
 
     export default {
         components: { Leader },
-        name: 'Session',
+        name: 'ChoixLeader',
         data: () => ({
             joueurs: {},
         }),
         beforeMount: async function() {
-            const { data } = await this.$http.get(`/api/leaders/randoms/${this.$route.params.id}`)
+            const { data } = await this.$http.get(`/api/leaders/randoms/${this.$route.params.idSession}`)
             this.joueurs = data
         },
         methods: {
             async choose (identite, joueur) {
                 const { data } = await this.$http.patch(`/api/joueurs/${joueur.id}/leader`, {
                     joueurId: joueur.id,
-                    session: { numero: this.$route.params.id },
+                    session: { numero: this.$route.params.idSession },
                     leader: identite,
                 })
-                console.log(data)
                 this.joueurs.filter(joueur => joueur.id === data.id).forEach(joueur => joueur.leader = data.leader)
+            },
+            async creationAbris () {
+                const {idSession} = this.$route.params
+                await this.$http.post(`/api/abris`, {
+                    session: { numero: idSession },
+                    joueurs: this.joueurs.map(joueur => ({ id: joueur.id })),
+                })
+                await this.$router.push({ name: 'Plateau', params: { idSession } })
             },
         },
         computed: {
             sessionId () {
-                return this.$route.params.id
+                return this.$route.params.idSession
             },
-            nextIsActive(){
+            nextIsActive () {
                 return Array.isArray(this.joueurs) ? this.joueurs.filter(joueur => !!joueur.leader).length === this.joueurs.length : false
-            }
+            },
         },
     }
 

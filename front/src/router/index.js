@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
-import Session from '@/views/ChoixLeader'
+import ChoixLeader from '@/views/ChoixLeader'
+import Salles from '@/views/Salles'
 
 Vue.use(VueRouter)
 
@@ -20,9 +21,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/sessions/:id',
-    name: 'Sessions',
-    component: Session
+    path: '/choix-du-leader/:idSession',
+    name: 'ChoixDuLeader',
+    component: ChoixLeader
+  },
+  {
+    path: '/salles/:idSession',
+    name: 'Salles',
+    component: Salles
   }
 ]
 
