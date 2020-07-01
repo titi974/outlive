@@ -8,7 +8,6 @@ import Equipement from '../../../domain/mise-en-place/entity/Equipement'
 export default class EquipementRepositoryTypeORM extends Repository<EquipementEntity>
     implements EquipementRepository {
     rattacherEquipementsJoueur(joueursEquipement: { joueur: Joueur; equipement: Equipement[] }): Promise<void> {
-
         return Promise.resolve(undefined);
     }
 

@@ -70,6 +70,6 @@ export class JoueurRepositoryTypeORM extends Repository<JoueurEntity> implements
 
     async mettreAJourDesJoueurs(joueurs: Joueur[]): Promise<void> {
         const joueurEntities = joueurs.map(mapJoueurDomainToPersistance)
-        this.save(joueurEntities)
+        await this.save(joueurEntities)
     }
 }

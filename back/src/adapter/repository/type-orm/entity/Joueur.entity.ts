@@ -13,6 +13,7 @@ import { JeuxEntity } from './Jeux.entity'
 import { LeaderEntity } from './Leader.entity'
 import { AbrisEntity } from './Abris.entity'
 import EquipementEntity from './Equipement.entity'
+import Equipement from '../../../../domain/mise-en-place/entity/Equipement'
 
 @Entity({ name: 'Joueur' })
 export class JoueurEntity {
@@ -53,6 +54,6 @@ export class JoueurEntity {
     abris: Promise<AbrisEntity>
 
     @ManyToMany(type => EquipementEntity)
-    @JoinTable()
+    @JoinTable({name:'Joueur_Equipement'})
     equipements: Promise<EquipementEntity[]>
 }
