@@ -22,7 +22,6 @@ export class LeaderRepositoryTypeORM extends Repository<LeaderEntity> implements
         const leaderEntities = Optional.ofNullable(await this.find()).orElseThrow(
             () => new Error('Aucun leader'),
         )
-        console.table(leaderEntities)
         return Promise.all(leaderEntities.map(async leader => {
             const equipementEntity = await leader.equipement
             const equipement = mapEquipementPersistanceToDomain(equipementEntity)
