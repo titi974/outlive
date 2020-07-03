@@ -6,6 +6,7 @@ import { LeaderRepositoryTypeORM } from '../../../repository/type-orm/LeaderRepo
 import { configORM } from '../../../repository/type-orm/ormconfig'
 import AbrisRepositoryTypeORM from '../../../repository/type-orm/AbrisRepositoryTypeORM'
 import EquipementRepositoryTypeORM from '../../../repository/type-orm/EquipementRepositoryTypeORM'
+import { SalleRepositoryTypeORM } from '../../../repository/type-orm/SalleRepositoryTypeORM'
 
 @Module({
     imports: [
@@ -15,7 +16,8 @@ import EquipementRepositoryTypeORM from '../../../repository/type-orm/Equipement
             JoueurRepositoryTypeORM,
             LeaderRepositoryTypeORM,
             AbrisRepositoryTypeORM,
-            EquipementRepositoryTypeORM
+            EquipementRepositoryTypeORM,
+            SalleRepositoryTypeORM
         ]),
     ],
     exports: [
@@ -24,7 +26,8 @@ import EquipementRepositoryTypeORM from '../../../repository/type-orm/Equipement
             JoueurRepositoryTypeORM,
             LeaderRepositoryTypeORM,
             AbrisRepositoryTypeORM,
-            EquipementRepositoryTypeORM
+            EquipementRepositoryTypeORM,
+            SalleRepositoryTypeORM
         ]),
     ],
 })
