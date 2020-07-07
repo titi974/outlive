@@ -41,6 +41,9 @@ export default class Joueur implements Entity<Joueur> {
         if (this.leadersAChoisr.length === 2) {
             throw new MaximumLeaderAchoisirError()
         }
+        if (this.leadersAChoisr.includes(leader)){
+            throw new Error('Leader exist déjà')
+        }
         this.leadersAChoisr.push(leader)
     }
 
