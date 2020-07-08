@@ -14,9 +14,13 @@ const MakeGenererSallesAleatoire = (
     const jeux = (await jeuxRepository.afficherLeJeux(session)).orElseThrow(() => new SessionInexistanteError(session))
     const joueurIds = jeux.joueurs.map(joueur => joueur.id)
     const salles = await salleRepository.recupererLesSalles()
-    const sallesAvancees = salles.filter(salle => salle.type === TYPES_SALLE.AVANCE)
-    const listeDeSalles = generationAlleatoire(jeux.joueurs.length * 6, salles)
-    return
+    const sallesAvancees = salles.filter(salle => salle.type === TYPES_SALLE.AVANCE).map(salleAvance => [salleAvance, salleAvance]).flatMap(sallesAvance => sallesAvance)
+    const listeDeSalles = generationAlleatoire(jeux.joueurs.length * 6, sallesAvancees)
+    const relation = new Map<JoueurId, Salle[]>()
+    joueurIds.forEach(joueurId => {
+        relation.set(joueurId, listeDeSalles.splice(0, 6))
+    })
+    return relation
 }
 
 
