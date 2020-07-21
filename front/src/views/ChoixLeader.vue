@@ -57,7 +57,7 @@
                     session: { numero: idSession },
                     joueurs: this.joueurs.map(joueur => ({ id: joueur.id })),
                 })
-                await this.$router.push({ name: 'Plateau', params: { idSession } })
+                await this.$router.push({ name: 'Salles', params: { idSession } })
             },
         },
         computed: {
