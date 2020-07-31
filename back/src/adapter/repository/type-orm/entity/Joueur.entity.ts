@@ -54,6 +54,6 @@ export class JoueurEntity {
     abris: Promise<AbrisEntity>
 
     @ManyToMany(type => EquipementEntity)
-    @JoinTable({name:'Joueur_Equipement'})
+    @JoinTable({ name: 'Joueur_Equipement' })
     equipements: Promise<EquipementEntity[]>
 }

@@ -1,7 +1,6 @@
 import ValueObject from '../../shared/ValueObject'
 
 export class EquipementId implements ValueObject<EquipementId> {
-
     constructor(private readonly id: number) {
         if (!this.id) {
         }
@@ -12,7 +11,6 @@ export class EquipementId implements ValueObject<EquipementId> {
     }
 
     sameValueAs(value: EquipementId): boolean {
-        return false;
+        return false
     }
-
 }

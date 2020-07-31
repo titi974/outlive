@@ -3,16 +3,14 @@ import { JoueurEntity } from './entity/Joueur.entity'
 import JoueurRepository from '../../../domain/mise-en-place/port/JoueurRepository'
 import Jeux from '../../../domain/mise-en-place/entity/Jeux'
 import Joueur from '../../../domain/mise-en-place/entity/Joueur'
-import {
-    mapJoueurDomainToPersistance,
-    mapJoueurPersistanceToDomain,
-} from './mapper/JoueurMapperPersistance'
+import { mapJoueurDomainToPersistance, mapJoueurPersistanceToDomain } from './mapper/JoueurMapperPersistance'
 import { Optional } from '@eastbanctech/ts-optional'
-import { mapLeaderDomainToWeb } from '../../application/nest-js/mapper/LeaderMapper'
 import { mapLeaderPersistanceToDomain } from './mapper/LeaderMapperPersistance'
 import { JoueurId } from '../../../domain/mise-en-place/valueObject/JoueurId'
 import { mapEquipementPersistanceToDomain } from './mapper/EquipementMapperPersistance'
 import Equipement from '../../../domain/mise-en-place/entity/Equipement'
+import { mapAbrisPersistanceToDomain } from './mapper/AbrisMapperPersistance'
+
 
 @EntityRepository(JoueurEntity)
 export class JoueurRepositoryTypeORM extends Repository<JoueurEntity> implements JoueurRepository {
@@ -40,10 +38,16 @@ export class JoueurRepositoryTypeORM extends Repository<JoueurEntity> implements
         let joueur: Joueur = null
         const joueurEntity = await this.findOne(id)
         if (joueurEntity) {
-            const leaderEntity = await joueurEntity.leader
+            const leaderEntityOptional = Optional.ofNullable(await joueurEntity.leader)
+            const abrisEntityOptional = Optional.ofNullable(await joueurEntity.abris)
+
             joueur = mapJoueurPersistanceToDomain(joueurEntity)
-            if (leaderEntity) {
-                joueur.ajouterLeader(mapLeaderPersistanceToDomain(leaderEntity, {} as Equipement))
+            if (leaderEntityOptional.isPresent()){
+                joueur.ajouterLeader(await mapLeaderPersistanceToDomain(leaderEntityOptional.get()))
+            }
+            if(abrisEntityOptional.isPresent()){
+                const abrisEntity = abrisEntityOptional.get()
+                joueur.ajouterMonAbris(await mapAbrisPersistanceToDomain(abrisEntity))
             }
         }
         return Optional.ofNullable(joueur)
@@ -59,9 +63,7 @@ export class JoueurRepositoryTypeORM extends Repository<JoueurEntity> implements
                 const leaderEntity = await joueurEntity.leader
                 const joueur = mapJoueurPersistanceToDomain(joueurEntity)
                 if (leaderEntity) {
-                    const equipementEntity = await leaderEntity.equipement
-                    const equipement = mapEquipementPersistanceToDomain(equipementEntity)
-                    joueur.ajouterLeader(mapLeaderPersistanceToDomain(leaderEntity, equipement))
+                    joueur.ajouterLeader(await mapLeaderPersistanceToDomain(leaderEntity))
                 }
                 return joueur
             }),

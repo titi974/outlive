@@ -6,14 +6,19 @@ import { providerUUIDGenerator } from './mock/UUIDGeneratorMock'
 import { providerJoueurRepository } from './mock/JoueurSpyOn'
 import { providerEquipementRepository } from './mock/EquipementSpyOn'
 
-
 describe('Abris Controller', () => {
     let controller: AbrisController
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             controllers: [AbrisController],
-            providers: [providerEquipementRepository, providerUUIDGenerator, providerJoueurRepository, providerAbrisRepository, AbrisService],
+            providers: [
+                providerEquipementRepository,
+                providerUUIDGenerator,
+                providerJoueurRepository,
+                providerAbrisRepository,
+                AbrisService,
+            ],
         }).compile()
 
         controller = module.get<AbrisController>(AbrisController)

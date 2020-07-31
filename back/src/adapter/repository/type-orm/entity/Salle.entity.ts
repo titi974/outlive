@@ -2,7 +2,6 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity({ name: 'Salle' })
 export default class SalleEntity {
-
     @PrimaryGeneratedColumn()
     id: number
 
@@ -32,5 +31,4 @@ export default class SalleEntity {
 
     @Column()
     place: number
-
 }

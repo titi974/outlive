@@ -12,10 +12,15 @@ export const FactoryEquipement = (id: number, nom: string): EquipementEntity => 
 export const FactoryEquipements = (nombre: number): LeaderEntity[] => {
     const equipement = []
     for (let i = 0; i < nombre; i++) {
-        equipement.push(FactoryEquipement(i, uniqueNamesGenerator({
-            dictionaries: [starWars],
-            length: 1,
-        })))
+        equipement.push(
+            FactoryEquipement(
+                i,
+                uniqueNamesGenerator({
+                    dictionaries: [starWars],
+                    length: 1,
+                }),
+            ),
+        )
     }
     return equipement
 }

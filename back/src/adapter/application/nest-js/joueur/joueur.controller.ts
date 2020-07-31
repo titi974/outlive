@@ -8,14 +8,18 @@ import { JoueurId } from '../../../../domain/mise-en-place/valueObject/JoueurId'
 
 @Controller(PathURL.JOUEURS)
 export class JoueurController extends RedirectOtherSee {
-    constructor(private readonly service: JoueurService,
-                private readonly joueurRepositoryTypeORM: JoueurRepositoryTypeORM) {
+    constructor(
+        private readonly service: JoueurService,
+        private readonly joueurRepositoryTypeORM: JoueurRepositoryTypeORM,
+    ) {
         super()
     }
 
     @Get()
     async getAll(@Query('ids') ids: string) {
-        return this.joueurRepositoryTypeORM.findJoueurByIds(ids.split(',').map(id => new JoueurId(id)))
+        return this.joueurRepositoryTypeORM.findJoueurByIds(
+            ids.split(',').map(id => new JoueurId(id)),
+        )
     }
 
     @Get(':id')

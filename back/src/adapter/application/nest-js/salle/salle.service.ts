@@ -3,16 +3,23 @@ import { SalleRepositoryTypeORM } from '../../../repository/type-orm/SalleReposi
 import Salle from '../../../../domain/mise-en-place/entity/Salle'
 import { JoueurId } from '../../../../domain/mise-en-place/valueObject/JoueurId'
 import Session from '../../../../domain/mise-en-place/valueObject/Session'
-import MakeGenererSallesAleatoire, { GenererSallesAleatoire } from '../../../../domain/mise-en-place/MakeGenererSallesAleatoire'
+import MakeGenererSallesAleatoire, {
+    GenererSallesAleatoire,
+} from '../../../../domain/mise-en-place/MakeGenererSallesAleatoire'
 import { JeuxRepositoryTypeORM } from '../../../repository/type-orm/JeuxRepositoryTypeORM'
 
 @Injectable()
 export class SalleService {
     private generateSallesAlleatoire: GenererSallesAleatoire
 
-    constructor(private readonly salleRepositoryTypeORM: SalleRepositoryTypeORM,
-                private readonly jeuxRepositoryTypeORM: JeuxRepositoryTypeORM) {
-        this.generateSallesAlleatoire = MakeGenererSallesAleatoire(salleRepositoryTypeORM, jeuxRepositoryTypeORM)
+    constructor(
+        private readonly salleRepositoryTypeORM: SalleRepositoryTypeORM,
+        private readonly jeuxRepositoryTypeORM: JeuxRepositoryTypeORM,
+    ) {
+        this.generateSallesAlleatoire = MakeGenererSallesAleatoire(
+            salleRepositoryTypeORM,
+            jeuxRepositoryTypeORM,
+        )
     }
 
     async getAll(): Promise<Salle[]> {

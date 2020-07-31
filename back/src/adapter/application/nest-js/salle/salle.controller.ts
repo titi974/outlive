@@ -3,7 +3,7 @@ import { SalleService } from './salle.service'
 import Salle from '../../../../domain/mise-en-place/entity/Salle'
 import { RedirectOtherSee } from '../utils/RedirectOtherSee'
 
-type salleByJoueurId = { joueurId: string, salles: Salle[] }
+type salleByJoueurId = { joueurId: string; salles: Salle[] }
 
 @Controller('salles')
 export class SalleController extends RedirectOtherSee {

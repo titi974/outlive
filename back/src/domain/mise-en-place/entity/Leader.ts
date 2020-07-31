@@ -19,6 +19,6 @@ export default class Leader implements Entity<Leader> {
     }
 
     sameEntityAs(entity: Leader): boolean {
-        return false;
+        return false
     }
 }

@@ -4,5 +4,5 @@ import { getRepositoryToken } from '@nestjs/typeorm'
 
 export const providerLeaderRepository = {
     provide: getRepositoryToken(LeaderRepositoryTypeORM),
-    useClass: LeaderRepositoryTypeORM
+    useClass: LeaderRepositoryTypeORM,
 } as Provider

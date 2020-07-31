@@ -32,8 +32,12 @@ describe('Leaders Controller', () => {
             controllers: [LeadersController],
             providers: [providerLeaderRepository, providerJeuxRepository, LeadersService],
         }).compile()
-        jeuxRepositoryTypeORM = module.get<JeuxRepositoryTypeORM>(getRepositoryToken(JeuxRepositoryTypeORM))
-        leaderRepositoryTypeORM = module.get<LeaderRepositoryTypeORM>(getRepositoryToken(LeaderRepositoryTypeORM))
+        jeuxRepositoryTypeORM = module.get<JeuxRepositoryTypeORM>(
+            getRepositoryToken(JeuxRepositoryTypeORM),
+        )
+        leaderRepositoryTypeORM = module.get<LeaderRepositoryTypeORM>(
+            getRepositoryToken(LeaderRepositoryTypeORM),
+        )
         controller = module.get<LeadersController>(LeadersController)
     })
 
@@ -62,4 +66,3 @@ describe('Leaders Controller', () => {
         expect(joueurWeb2.leaderAChoisir).toHaveLength(2)
     })
 })
-

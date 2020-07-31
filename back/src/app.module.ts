@@ -8,7 +8,7 @@ import { LeadersModule } from './adapter/application/nest-js/leaders/leaders.mod
 import { JoueurModule } from './adapter/application/nest-js/joueur/joueur.module'
 import { SharedModule } from './adapter/application/nest-js/shared/shared.module'
 import { AbrisModule } from './adapter/application/nest-js/abris/abris.module'
-import { SalleModule } from './adapter/application/nest-js/salle/salle.module';
+import { SalleModule } from './adapter/application/nest-js/salle/salle.module'
 
 @Module({
     imports: [JeuxModule, LeadersModule, JoueurModule, SharedModule, AbrisModule, SalleModule],

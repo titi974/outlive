@@ -36,11 +36,17 @@ export class AbrisController extends RedirectOtherSee {
     @Redirect(PathURL.JOUEURS, 303)
     async creationAbris(@Body() abrisCreate: AbrisCreate) {
         const abrisIds = await this.abrisService.creerLesAbris(abrisCreate)
-        const abrisEntities = await this.abrisRepositoryTypeORM.findByIds(abrisIds.map(id => id.value))
-        const ids = await Promise.all(abrisEntities.map(async abrisEntity => {
-            const joueurEntity = await abrisEntity.joueur
-            return joueurEntity?.id
-        }))
-        return this.redirect(PathURL.JOUEURS, { query: [`ids=${ids.filter(id => typeof id === 'string').join(',')}`] })
+        const abrisEntities = await this.abrisRepositoryTypeORM.findByIds(
+            abrisIds.map(id => id.value),
+        )
+        const ids = await Promise.all(
+            abrisEntities.map(async abrisEntity => {
+                const joueurEntity = await abrisEntity.joueur
+                return joueurEntity?.id
+            }),
+        )
+        return this.redirect(PathURL.JOUEURS, {
+            query: [`ids=${ids.filter(id => typeof id === 'string').join(',')}`],
+        })
     }
 }

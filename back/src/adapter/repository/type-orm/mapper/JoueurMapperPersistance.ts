@@ -11,12 +11,12 @@ export const mapJoueurDomainToPersistance = (joueur: Joueur): JoueurEntity => {
     joueurEntity.couleur = joueur.couleur
     joueurEntity.pseudo = joueur.pseudo
     joueurEntity.leaderId = null
-    Optional.ofNullable(joueur.monLeader).ifPresent(
-        leader => {
-            joueurEntity.leaderId = leader.id.value
-            joueurEntity.equipements = Promise.resolve([mapEquipementDomainToPersistance(leader.equipement)])
-        },
-    )
+    Optional.ofNullable(joueur.monLeader).ifPresent(leader => {
+        joueurEntity.leaderId = leader.id.value
+        joueurEntity.equipements = Promise.resolve([
+            mapEquipementDomainToPersistance(leader.equipement)
+        ])
+    })
     Optional.ofNullable(joueur.monAbris).ifPresent(abris => (joueurEntity.abrisId = abris.id.value))
     return joueurEntity
 }

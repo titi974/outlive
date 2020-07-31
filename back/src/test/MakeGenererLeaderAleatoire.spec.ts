@@ -17,7 +17,6 @@ class JeuxRepositoryMock implements JeuxRepository {
     creer(jeux: Jeux): Promise<void> {
         return Promise.resolve(undefined)
     }
-
 }
 
 class LeaderRepositoryMock implements LeaderRepository {
@@ -28,7 +27,6 @@ class LeaderRepositoryMock implements LeaderRepository {
     leaderByNom(leaderNom: string): Promise<Leader> {
         return Promise.resolve(undefined)
     }
-
 }
 
 describe('MakeGenererLeadersAleatoire', () => {
@@ -42,11 +40,20 @@ describe('MakeGenererLeadersAleatoire', () => {
         joueur1.ajouterUnPseudo('1')
         joueur2.ajouterUnPseudo('2')
         jeux.ajouterDesJoueurs([joueur1, joueur2])
-        const makeGenererLeadersAleatoire = MakeGenererLeadersAleatoire(jeuxRepositoryMock, leaderRepositoryMock)
+        const makeGenererLeadersAleatoire = MakeGenererLeadersAleatoire(
+            jeuxRepositoryMock,
+            leaderRepositoryMock,
+        )
         jest.spyOn(jeuxRepositoryMock, 'afficherLeJeux').mockResolvedValue(Optional.of(jeux))
-        jest.spyOn(leaderRepositoryMock, 'allLeaders').mockResolvedValue([{} as Leader, {} as Leader, {} as Leader, {} as Leader, {} as Leader, {} as Leader])
+        jest.spyOn(leaderRepositoryMock, 'allLeaders').mockResolvedValue([
+            {} as Leader,
+            {} as Leader,
+            {} as Leader,
+            {} as Leader,
+            {} as Leader,
+            {} as Leader,
+        ])
         const joueurs = await makeGenererLeadersAleatoire(session)
         expect(joueurs).toHaveLength(2)
-
     })
 })

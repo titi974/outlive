@@ -10,7 +10,9 @@ describe('Génerer une liste aleatoire', () => {
     describe(`de 4 Leaders`, () => {
         it(`à partir d'une liste de 8 avec succès`, () => {
             const equipement = mapEquipementPersistanceToDomain(FactoryEquipement(1, 'fusil'))
-            const liste = FactoryLeaders(8).map(leaderEntity => mapLeaderPersistanceToDomain(leaderEntity, equipement))
+            const liste = FactoryLeaders(8).map(leaderEntity =>
+                mapLeaderPersistanceToDomain(leaderEntity, equipement),
+            )
             const result = generationAlleatoire(4, liste)
             expect(result).toHaveLength(4)
             result.forEach(val => expect(liste).toContainEqual(val))
@@ -24,7 +26,9 @@ describe('Génerer une liste aleatoire', () => {
     describe(`de 6 Leaders`, () => {
         it(`à partir d'une liste de 15 Leader avec doublons avec succès`, () => {
             const equipement = mapEquipementPersistanceToDomain(FactoryEquipement(1, 'fusil'))
-            const liste = FactoryLeaders(2).map(leaderEntity => mapLeaderPersistanceToDomain(leaderEntity, equipement))
+            const liste = FactoryLeaders(2).map(leaderEntity =>
+                mapLeaderPersistanceToDomain(leaderEntity, equipement),
+            )
             const result = generationAlleatoire(3, liste, true)
             expect(result).toHaveLength(3)
             const allReadyFind = {}
@@ -35,11 +39,9 @@ describe('Génerer une liste aleatoire', () => {
                 } else {
                     allReadyFind[identite] = 1
                 }
-
             })
             const filter = Object.values(allReadyFind).filter(val => val > 1)
             expect(filter).toHaveLength(1)
         })
     })
-
 })

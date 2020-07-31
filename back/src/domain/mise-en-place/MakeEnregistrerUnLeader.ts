@@ -16,7 +16,7 @@ const makeEnregistrerUnLeader = (
     jeuxRepository: JeuxRepository,
     joueurRepository: JoueurRepository,
     leaderRepository: LeaderRepository,
-) => async (session: Session, joueurId: JoueurId, leaderNom: string): Promise<Joueur> => {
+): EnregistrerUnLeader => async (session: Session, joueurId: JoueurId, leaderNom: string): Promise<Joueur> => {
     const jeux = (await jeuxRepository.afficherLeJeux(session)).orElseThrow(
         () => new SessionInexistanteError(session),
     )

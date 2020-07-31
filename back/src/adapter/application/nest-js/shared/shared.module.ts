@@ -17,7 +17,7 @@ import { SalleRepositoryTypeORM } from '../../../repository/type-orm/SalleReposi
             LeaderRepositoryTypeORM,
             AbrisRepositoryTypeORM,
             EquipementRepositoryTypeORM,
-            SalleRepositoryTypeORM
+            SalleRepositoryTypeORM,
         ]),
     ],
     exports: [
@@ -27,7 +27,7 @@ import { SalleRepositoryTypeORM } from '../../../repository/type-orm/SalleReposi
             LeaderRepositoryTypeORM,
             AbrisRepositoryTypeORM,
             EquipementRepositoryTypeORM,
-            SalleRepositoryTypeORM
+            SalleRepositoryTypeORM,
         ]),
     ],
 })

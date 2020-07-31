@@ -27,9 +27,10 @@ export class LeaderEntity {
     @Column()
     equipementId: number
 
-    @OneToOne(type => EquipementEntity,
-            equipement => equipement.leader)
+    @OneToOne(
+        type => EquipementEntity,
+        equipement => equipement.leader,
+    )
     @JoinColumn()
     equipement: Promise<EquipementEntity>
-
 }

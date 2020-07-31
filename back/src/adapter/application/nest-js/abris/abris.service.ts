@@ -25,7 +25,7 @@ export class AbrisService {
             uuidGenerator,
             joueurRepository,
             abrisRepository,
-            equipementRepository
+            equipementRepository,
         )
     }
 

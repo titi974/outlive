@@ -34,8 +34,7 @@ export class JeuxRepositoryTypeORM extends Repository<JeuxEntity> implements Jeu
                 const joueur = mapJoueurPersistanceToDomain(joueurEntitie)
                 const leaderEntity = await joueurEntitie.leader
                 if (leaderEntity) {
-                    const equipementEntity = await leaderEntity.equipement
-                    joueur.ajouterLeader(mapLeaderPersistanceToDomain(leaderEntity, mapEquipementPersistanceToDomain(equipementEntity)))
+                    joueur.ajouterLeader(await mapLeaderPersistanceToDomain(leaderEntity))
                 }
                 return joueur
             })

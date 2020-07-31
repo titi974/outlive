@@ -14,8 +14,7 @@ export default class Joueur implements Entity<Joueur> {
     private abris: Abris
     public equipements: Equipement[] = []
 
-    constructor(public readonly id: JoueurId, public readonly couleur: COULEURS) {
-    }
+    constructor(public readonly id: JoueurId, public readonly couleur: COULEURS) {}
 
     get pseudo(): string {
         return this.monPseudo
@@ -41,7 +40,7 @@ export default class Joueur implements Entity<Joueur> {
         if (this.leadersAChoisr.length === 2) {
             throw new MaximumLeaderAchoisirError()
         }
-        if (this.leadersAChoisr.includes(leader)){
+        if (this.leadersAChoisr.includes(leader)) {
             throw new Error('Leader exist déjà')
         }
         this.leadersAChoisr.push(leader)
@@ -59,7 +58,7 @@ export default class Joueur implements Entity<Joueur> {
     }
 
     ajouterEquipement(equipement: Equipement) {
-        if(this.equipements.includes(equipement)){
+        if (this.equipements.includes(equipement)) {
             throw new Error(`Vous avez déjà cette équipement: ${equipement.nom}`)
         }
         this.equipements.push(equipement)

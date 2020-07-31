@@ -9,6 +9,7 @@ import JoueurRepository from './port/JoueurRepository'
 import { UUIDGenerator } from '../../adapter/id-generator/UUIDGenerator'
 import Joueur from './entity/Joueur'
 import Equipement from './entity/Equipement'
+import Radioactivite from './entity/Radioactivite'
 
 export type InitAbrisJoueur = (session: Session, joueurIds: JoueurId[]) => Promise<AbrisId[]>
 
@@ -38,7 +39,7 @@ const MakeInitiliserRessourceDAbris = (
         }
         const id = uuidGenerator.execute()
         const idAbris = new AbrisId(id)
-        const abris = new Abris(idAbris, zoneDeStockages)
+        const abris = new Abris(idAbris, zoneDeStockages, new Radioactivite(0))
         joueur.ajouterMonAbris(abris)
         joueur.ajouterEquipement(equipement)
         abrisId.push(abris.id)

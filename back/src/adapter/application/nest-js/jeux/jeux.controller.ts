@@ -12,6 +12,8 @@ export type JoueursPseudoCommandWeb = {
     joueurs: JoueurPseudoWeb[]
 }
 
+export type SalleEnregeistrementCommand = { joueurId: string; salles: number[] }
+
 @Controller(PathURL.JEUX)
 export class JeuxController extends RedirectOtherSee {
     constructor(private readonly jeuxService: JeuxService) {
@@ -35,6 +37,14 @@ export class JeuxController extends RedirectOtherSee {
     async addPseudo(@Body() joueursPseudoWeb: JoueursPseudoCommandWeb) {
         const jeuxWeb = await this.jeuxService.enregistrerLesPseudo(joueursPseudoWeb)
         return this.redirect(PathURL.JEUX, { uri: [jeuxWeb.session.numero] })
+    }
+
+    @Post(':id/salles')
+    async addSalles(
+        @Body() salleEnregeistrementCommand: SalleEnregeistrementCommand,
+        @Param('id') numero: string,
+    ) {
+        await this.jeuxService.saveRooms(numero, salleEnregeistrementCommand)
     }
 
     // @Post(':id/joueurs')

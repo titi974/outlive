@@ -1,6 +1,7 @@
-import { Column, Entity, OneToOne, PrimaryColumn } from 'typeorm'
+import { Column, Entity, JoinTable, ManyToMany, OneToOne, PrimaryColumn } from 'typeorm'
 import { ressourcesEntity } from './Leader.entity'
 import { JoueurEntity } from './Joueur.entity'
+import SalleEntity from './Salle.entity'
 
 @Entity({ name: 'Abris' })
 export class AbrisEntity {
@@ -18,4 +19,8 @@ export class AbrisEntity {
         joueur => joueur.abris,
     )
     joueur: Promise<JoueurEntity>
+
+    @ManyToMany(type => SalleEntity)
+    @JoinTable({ name: 'Abris_Salles' })
+    salles: Promise<SalleEntity[]>
 }

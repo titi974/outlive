@@ -1,10 +1,15 @@
 <template>
     <div>
         <template v-for="(salle,i) of salles">
-            <Salle :key="i" :id="salle.id.id" :nom="salle.nom" :img="salle.img" :info="salle.info"
+            <Salle :is-disabled="disabledSelected"
+                   :key="i"
+                   :id="salle.id.id"
+                   :nom="salle.nom"
+                   :img="salle.img"
+                   :info="salle.info"
                    @selectionner="salleChoisie($event)"/>
         </template>
-        <v-btn :disabled="!allSalleSelected" @click="sallesSelectionner()">
+        <v-btn v-if="!selected" :disabled="!allSalleSelected" @click="sallesSelectionner()">
             Envoyer la selection
         </v-btn>
     </div>
@@ -25,9 +30,13 @@
                 type: Array,
                 required: true,
             },
+            selected: {
+                type: Boolean,
+                required: true
+            }
         },
         data: () => ({
-            sallesSelected: [],
+            sallesSelected: []
         }),
         methods: {
             salleChoisie (id) {
@@ -48,6 +57,9 @@
             allSalleSelected () {
                 return this.sallesSelected.length === 4
             },
+            disabledSelected() {
+                return this.allSalleSelected
+            }
         },
     }
 </script>
@@ -57,21 +69,3 @@
 
     }
 </style>
-<!--<v-list flat-->
-<!--        :three-line="true">-->
-<!--    <v-subheader>Salles</v-subheader>-->
-<!--    <v-list-item-group color="primary">-->
-<!--        <v-list-item-->
-<!--                v-for="(salle,i) of salles"-->
-<!--                :key="i"-->
-<!--        >-->
-<!--            <v-list-item-avatar >-->
-<!--                <v-img :src="linkPhoto(salle.img)"></v-img>-->
-<!--            </v-list-item-avatar>-->
-<!--            <v-list-item-content>-->
-<!--                <v-list-item-title v-html="salle.nom"></v-list-item-title>-->
-<!--                <v-list-item-subtitle v-html="salle.info" ></v-list-item-subtitle>-->
-<!--            </v-list-item-content>-->
-<!--        </v-list-item>-->
-<!--    </v-list-item-group>-->
-<!--</v-list>-->

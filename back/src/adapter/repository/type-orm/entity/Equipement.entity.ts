@@ -6,7 +6,6 @@ type coutEntity = { name: RESSOURCES; quantite: number }
 
 @Entity({ name: 'Equipement' })
 export default class EquipementEntity {
-
     @PrimaryGeneratedColumn()
     id: number
 
@@ -31,8 +30,10 @@ export default class EquipementEntity {
     @Column()
     img: string
 
-    @OneToOne(type => LeaderEntity,
+    @OneToOne(
+        type => LeaderEntity,
         leader => leader.equipement,
-        { lazy: true })
+        { lazy: true },
+    )
     leader: Promise<LeaderEntity>
 }
