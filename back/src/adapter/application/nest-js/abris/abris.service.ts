@@ -10,6 +10,7 @@ import Session from '../../../../domain/mise-en-place/valueObject/Session'
 import { JoueurId } from '../../../../domain/mise-en-place/valueObject/JoueurId'
 import { AbrisId } from '../../../../domain/mise-en-place/valueObject/AbrisId'
 import EquipementRepositoryTypeORM from '../../../repository/type-orm/EquipementRepositoryTypeORM'
+import Abris from '../../../../domain/mise-en-place/entity/Abris'
 
 @Injectable()
 export class AbrisService {
@@ -34,5 +35,9 @@ export class AbrisService {
             new Session(abrisCreate.session.numero),
             abrisCreate.joueurs.map(joueur => new JoueurId(joueur.id)),
         )
+    }
+
+    async monAbris(abrisId: AbrisId): Promise<Abris> {
+        return null
     }
 }

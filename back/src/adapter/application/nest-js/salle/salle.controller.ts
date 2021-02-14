@@ -1,7 +1,8 @@
-import { Controller, Get, Param } from '@nestjs/common'
-import { SalleService } from './salle.service'
+import { Body, Controller, Get, Param, Patch, Redirect } from '@nestjs/common'
+import { SalleConstruireCommand, SalleService } from './salle.service'
 import Salle from '../../../../domain/mise-en-place/entity/Salle'
 import { RedirectOtherSee } from '../utils/RedirectOtherSee'
+import PathURL from '../utils/PathURL'
 
 type salleByJoueurId = { joueurId: string; salles: Salle[] }
 
@@ -24,5 +25,11 @@ export class SalleController extends RedirectOtherSee {
             results.push({ joueurId: key.value, salles: val })
         })
         return results
+    }
+
+    @Patch(':session')
+    @Redirect(PathURL.JOUEURS, 303)
+    async construireSalles(@Param('session') session: string, @Body() salleConstruireCommand: SalleConstruireCommand): Promise<void> {
+        await this.salleSerivice.construireSalle(session, salleConstruireCommand)
     }
 }

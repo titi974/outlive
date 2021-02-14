@@ -1,10 +1,11 @@
-import { Body, Controller, Get, Post, Query, Redirect } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, Query, Redirect } from '@nestjs/common'
 import { RedirectOtherSee } from '../utils/RedirectOtherSee'
 import { AbrisService } from './abris.service'
 import { SessionWeb } from '../models/SessionWeb'
 import { JoueurWeb } from '../models/JoueurWeb'
 import PathURL from '../utils/PathURL'
 import AbrisRepositoryTypeORM from '../../../repository/type-orm/AbrisRepositoryTypeORM'
+import { AbrisId } from '../../../../domain/mise-en-place/valueObject/AbrisId'
 
 export type AbrisCreate = { session: SessionWeb; joueurs: JoueurWeb[] }
 
@@ -48,5 +49,10 @@ export class AbrisController extends RedirectOtherSee {
         return this.redirect(PathURL.JOUEURS, {
             query: [`ids=${ids.filter(id => typeof id === 'string').join(',')}`],
         })
+    }
+
+    @Get(':id')
+    async getAbris(@Param('id') numero: string) {
+        const abris = await this.abrisService.monAbris(new AbrisId(numero))
     }
 }
